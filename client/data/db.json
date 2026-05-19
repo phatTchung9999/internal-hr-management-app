@@ -1,0 +1,30 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "checked": false,
+      "item": "Almonds, Unsalted, in the blue bag"
+    },
+    {
+      "id": 2,
+      "checked": false,
+      "item": "Pizza"
+    },
+    {
+      "id": 3,
+      "checked": false,
+      "item": "Vietnamese Crepe"
+    },
+    {
+      "id": 4,
+      "checked": false,
+      "item": "cookie"
+    },
+    {
+      "id": 5,
+      "checked": false,
+      "item": "milk"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
