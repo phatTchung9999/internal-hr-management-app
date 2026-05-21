@@ -112,7 +112,12 @@ function App() {
         setSearch={setSearch}
       />
       <Routes>
-        <Route path="/" element={<Login />}/>
+        <Route path="/" element={<Login 
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          fetchError={fetchError}
+          setFetchError={setFetchError}
+        />}/>
         <Route path="/home" element={<Home 
           newItem={newItem}
           setNewItem={setNewItem}

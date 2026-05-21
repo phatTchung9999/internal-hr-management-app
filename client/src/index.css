@@ -183,3 +183,35 @@ button:hover {
 
   outline: none;
 }
+
+
+.loginForm {
+  min-height: 40rem;
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.loginForm label {
+  position: absolute;
+  left: -99999px
+}
+
+.loginForm input {
+  height: 2.5rem;
+  width: calc(100% - 10rem);
+  font-size: 1.5rem;
+  padding: 0 0 0 1rem;
+  border-radius: 0.5rem;
+}
+
+.loginForm button {
+  background-color: black;
+  color: white;
+  width: calc(100% - 20rem);
+  border-radius: 1rem;
+  font-size: 1.5rem;
+}

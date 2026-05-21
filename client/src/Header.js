@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchItem from './SearchItem';
+import Logout from './Logout';
 import {Routes, Route} from 'react-router-dom';
 
 const Header = ({ title, clearStorage, search, setSearch }) => {
@@ -25,12 +26,7 @@ const Header = ({ title, clearStorage, search, setSearch }) => {
         </div>
         <Routes>
           <Route path='/home' element={
-          <div>
-            <a style={{
-              textDecoration: 'none',
-              color: 'black'
-            }} href='/'>Logout</a>
-          </div>
+              <Logout />
           }
           />
         </Routes>
