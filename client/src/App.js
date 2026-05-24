@@ -1,5 +1,6 @@
 import './index.css';
 import Header from './Header';
+import Departments from './Departments';
 import Employees from './Employees';
 import Login from './Login';
 import Home from './Home';
@@ -137,9 +138,10 @@ function App() {
           auth={auth}
           setAuth={setAuth}
         />}/>
-        <Route path="/home" element={<Home />}/>
+        <Route path="/home" element={<Home /> }/>
 
-        <Route path="/employees" element={auth ? <Employees
+        <Route path="/departments" element={<Departments />}/>
+        <Route path="/employees" element={<Employees
           newItem={newItem}
           setNewItem={setNewItem}
           handleSubmit={handleSubmit}
@@ -150,7 +152,7 @@ function App() {
           items={items}
           search={search}
           setSearch={setSearch}
-        /> : <Navigate to='/' />
+        />
         }/>
 
       </Routes>

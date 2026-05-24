@@ -7,7 +7,7 @@ const Home = () => {
         <a href='#'>New hires</a>
         <a href='#'>Attendance</a>
         <a href='#'>Requests</a>
-        <a href='/employees'>Departments</a>
+        <a href='/departments'>Departments</a>
         <a href='#'>Payroll</a>
 
     </div>
