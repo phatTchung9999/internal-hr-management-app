@@ -20,6 +20,9 @@ function App() {
   const [search, setSearch] = useState('');
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const [auth, setAuth] = useState(() => {
     return localStorage.getItem('accessToken') ? true : false
   });
@@ -135,10 +138,18 @@ function App() {
           setIsLoading={setIsLoading}
           fetchError={fetchError}
           setFetchError={setFetchError}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+          message={message}
+          setMessage={setMessage}
           auth={auth}
           setAuth={setAuth}
         />}/>
-        <Route path="/home" element={<Home /> }/>
+        <Route path="/home" element={<Home 
+          username={username}
+        /> }/>
 
         <Route path="/departments" element={<Departments />}/>
         <Route path="/employees" element={<Employees

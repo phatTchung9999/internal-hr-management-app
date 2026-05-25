@@ -2,14 +2,20 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({ auth, setAuth }) => {
+const Login = ({ 
+  auth, 
+  setAuth, 
+  username, 
+  setUsername, 
+  password, 
+  setPassword, 
+  message, 
+  setMessage }) => {
 
   useEffect(() => console.log(auth), [auth])
 
   const AUTH_API = "http://localhost:3500/auth";
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+
   const navigate = useNavigate()
 
   const handleLogin = async (e) => {
