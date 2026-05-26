@@ -226,40 +226,73 @@ button:hover {
 }
 
 .homepage {
-  height: 100vh;
+  min-height: 100vh;
   background-color: rgb(218, 225, 237);
   gap: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem; 
-  /* display: flex;  */
-  /* align-items: baseline; */
+  max-width: 1300px;
+  margin: 3rem auto 0 auto;
+  padding: 0 1rem;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
 }
 
 .homepage>.profile {
-  border: solid black;
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
-}
-
-.homepage a {
-  background-color: white;
-  color: black;
-  border: solid rgb(56, 58, 62);
-  border-radius: 1rem;
-  min-height: 7rem;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  text-decoration: none;
-  font-size: 1.5rem;
+  background-color: white;
+  box-shadow: 0 4px 10px gray;
+  padding: 0 1rem;
+  margin: 1rem auto;
 }
 
-.homepage a:hover {
-  background-color: lightgray;
-  transform: scale(0.95);
-  transition: transform 0.3s ease;
+.homepage>.profile button {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+}
+
+.homepage>.dashboardContent {
+  width: 90%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 4px 10px gray;
+  padding: 0 1rem;
+  margin: 0 auto 1rem;
+  overflow: hidden;
+}
+
+.homepage>.dashboardContent>.cards {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1.5rem;
+  overflow-x: auto;
+  padding: 2rem;
+}
+
+.homepage>.dashboardContent>.cards>.card {
+  background-color: rgb(245, 247, 250);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px lightgray;
+  flex: 0 0 16rem;   
+  padding: 1.5rem;
+  box-sizing: border-box;
+  height: 20rem;
+}
+
+.cards::-webkit-scrollbar {
+  height: 5px;
+}
+
+.cards::-webkit-scrollbar-thumb {
+  background-color: gray;
+  border-radius: 10px;
 }
 
 .departmentPage {
@@ -393,6 +426,12 @@ button:hover {
 
 
 @media (max-width: 768px) {
+  .homepage>.dashboardContent>.cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
   .departmentPage nav {
     width: 75vw;
   }
