@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 @media (max-width: 600px) {
   .homepage {
     flex-direction: column;
@@ -189,7 +193,6 @@ button:hover {
   height: 2rem;
   font-size: 1rem;
   border-radius: 0.25rem;
-
   outline: none;
 }
 
@@ -256,7 +259,6 @@ button:hover {
 
 .homepage>.dashboardContent {
   width: 90%;
-  height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -348,7 +350,6 @@ button:hover {
   display: flex;
   min-height: 100vh;
   width: 100%;
-  margin: 3.1rem 0 0 0;
   overflow-x: hidden;
   justify-content: center;
 }
@@ -358,7 +359,8 @@ button:hover {
   z-index: -1;
 }
 
-.departmentPage nav {
+.departmentPage nav,
+.employeesDashboard nav {
   background-color: rgb(34, 34, 35);
   position: fixed;
   left: 0;
@@ -369,12 +371,14 @@ button:hover {
   z-index: 2;
 }
 
-.departmentPage nav.closed {
+.departmentPage nav.closed,
+.employeesDashboard nav.closed {
   transform: translateX(-100%);
 }
 
 
-.departmentPage nav button {
+.departmentPage nav button,
+.employeesDashboard nav button {
   background-color: rgb(45, 45, 50);
   color: white;
   width: 100%;
@@ -383,11 +387,13 @@ button:hover {
   border-radius: 0;
 }
 
-.departmentPage nav button:hover {
+.departmentPage nav button:hover,
+.employeesDashboard nav button:hover{
   background-color: rgb(18, 86, 188);
 }
 
-.departmentPage nav div {
+.departmentPage nav div,
+.employeesDashboard nav div {
   background-color: rgb(34, 34, 35);
   color: white;
   position: absolute;
@@ -407,12 +413,25 @@ button:hover {
   background-color: rgb(218, 225, 237);
   max-width: 1300px;
   width: 100%;
-  padding: 3rem;
+  padding: 2rem 4rem;
 }
 
 
 .box1 {
-  text-align: start;
+  background-color: white;
+  box-shadow: 0 4px 10px gray;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 2rem 0 0 0;
+  padding: 0rem 1rem;
+}
+
+.box1 button {
+  background-color: white;
+  border: solid lightgray 0.5px;
 }
 
 .box2 {
@@ -420,40 +439,24 @@ button:hover {
   box-shadow: 0 4px 10px gray;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  text-align: center;
-  margin: 2rem 0;
-  padding: 0rem 2rem;
-}
-
-.box2 button {
-  background-color: white;
-  border: solid lightgray 0.5px;
-}
-
-.box3 {
-  background-color: white;
-  box-shadow: 0 4px 10px gray;
-  display: flex;
-  flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
   text-align: center;
-  margin: 2rem 0;
+  margin: 1rem 0;
   padding: 2rem 2rem;
 
 }
 
-.box3 h1 {
+.box2 h1 {
   font-size: 3rem;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.box3 p {
+.box2 p {
   font-size: 1.2rem;
 }
 
-.box3>.box3Item {
+.box2>.box2Item {
   display: flex;
   background-color: rgb(218, 225, 237);
   min-width: 45%;
@@ -462,7 +465,7 @@ button:hover {
   gap: 2rem
 }
 
-.box3Item>button {
+.box2Item>button {
   background-color: rgb(18, 86, 188);
   color: white;
   display: block;
@@ -476,6 +479,148 @@ button:hover {
   cursor: pointer;
 }
 
+.box3 {
+  background-color: white;
+  box-shadow: 0 4px 10px gray;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  margin: 1rem 0;
+  padding: 1rem 1rem;
+}
+
+.employeesDashboard {
+  position: static;
+  min-height: 100vh;
+  background-color: rgb(218, 225, 237);
+  gap: 1rem;
+  max-width: 1300px;
+  margin: 0 auto 0 auto;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.employeesDashboard>.searchBar {
+  display: flex;
+  width: 90%;
+  margin: 4rem 0 0 0;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 0 1rem;
+  box-shadow: 0 4px 10px gray;
+}
+
+.employeesDashboard>.searchBar button {
+  background-color: transparent;
+  border: 0.1rem solid lightgray;
+  color: black;
+  display: flex;
+  width: fit-content;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.employeesDashboard>.searchBar .searchForm input {
+  background-color: transparent;
+  border: 0.1rem solid lightgray;
+  color: black;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
+.employeesDashboard>.dashboardContent {
+  display: flex;
+  width: 90%;
+  height: fit-content;
+  margin: 1rem 0;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.employeesDashboard>.dashboardContent>.employeeCards {
+  width: 49%;
+  display: flex;
+  align-items: start;
+  background-color: white;
+  box-shadow: 0 4px 10px gray;
+  overflow-x: auto;
+}
+
+
+.employeesDashboard>.dashboardContent>.summaryCards {
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px gray;
+  background-color: white;
+  padding-bottom: 2rem;
+}
+
+.employeeCards table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.employeeCards th,
+.employeeCards td {
+  padding: 1rem;
+  border-bottom: 1px solid lightgray;
+  text-align: left;
+}
+
+.employeeCards .memberInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.employeeCards .memberPhoto {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  border: 0.5px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.employeeCards .memberName {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.employeeCards .memberName h4,
+.employeeCards .memberName p {
+  margin: 0;
+}
+
+.summaryCards .card {
+  height: 20rem;
+  text-align: start;
+  padding: 0 1rem;
+}
+
+.hoursChart,
+.paidChart {
+  width: 100%;
+  padding-right: 2rem;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 
 @media (max-width: 768px) {
@@ -505,16 +650,28 @@ button:hover {
     padding: 0rem 1.5rem;
   }
 
-  .box1 h1 {
-    font-size: 1.6rem;
+  .employeesDashboard > .dashboardContent {
+    flex-direction: column;
   }
 
-  .box3 {
+  .employeesDashboard > .dashboardContent > .employeeCards {
+    width: 100%;
+  }
+
+  .employeesDashboard > .dashboardContent > .summaryCards {
+    width: 100%;
+  }
+
+  .box1 {
+    margin: 3.5rem 0 0 0;
+  }
+
+  .box2 {
     flex-direction: column;
     gap: 2rem;
   }
 
-  .box3>.box3Item {
+  .box2>.box2Item {
     width: 90%;
   }
 }

@@ -1,6 +1,7 @@
 import './index.css';
 import Header from './Header';
 import Departments from './Departments';
+import EmployeesDashboard from './EmployeesDashboard';
 import Employees from './Employees';
 import Login from './Login';
 import Home from './Home';
@@ -11,7 +12,6 @@ import apiRequest from './apiRequest';
 import { useState, useEffect } from 'react';
 import { SiEraser } from 'react-icons/si';
 import { Routes, Route, Navigate } from 'react-router-dom';
-
 function App() {
   const API_URL = "http://localhost:3500/employees";
 
@@ -23,6 +23,8 @@ function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [department, setDepartment] = useState('');
+  const [navBar, setNavBar] = useState(false);
   const [auth, setAuth] = useState(() => {
     return localStorage.getItem('accessToken') ? true : false
   });
@@ -150,8 +152,20 @@ function App() {
         <Route path="/home" element={<Home 
           username={username}
         /> }/>
-
-        <Route path="/departments" element={<Departments />}/>
+        <Route path="/departments" element={<Departments 
+          department={department}
+          setDepartment={setDepartment}
+          navBar={navBar}
+          setNavBar={setNavBar}
+        />}/>
+        <Route path="/departments/executive" element={<EmployeesDashboard 
+          department={department}
+          setDepartment={setDepartment}
+          search={search}
+          setSearch={setSearch}
+          navBar={navBar}
+          setNavBar={setNavBar}
+        />}/>
         <Route path="/employees" element={<Employees
           newItem={newItem}
           setNewItem={setNewItem}
