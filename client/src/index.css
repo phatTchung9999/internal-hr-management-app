@@ -275,6 +275,7 @@ button:hover {
   flex-wrap: nowrap;
   gap: 1.5rem;
   overflow-x: auto;
+  overflow-y: hidden;
   padding: 2rem;
 }
 
