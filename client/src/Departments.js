@@ -9,7 +9,7 @@ const Departments = () => {
 
     return (
 
-        <main className='departmentPage'>
+        <main className={`departmentPage ${navBar ? 'dimmed' : ''}`}>
             <nav className={navBar ? 'open' : 'closed'}>
                 <button>Executive</button>
                 <button>Production</button>

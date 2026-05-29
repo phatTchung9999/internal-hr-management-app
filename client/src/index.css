@@ -281,9 +281,10 @@ button:hover {
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px lightgray;
   flex: 0 0 16rem;   
-  padding: 1.5rem;
+  flex-direction: column;
   box-sizing: border-box;
   height: 20rem;
+  display: flex;
 }
 
 .cards::-webkit-scrollbar {
@@ -293,6 +294,53 @@ button:hover {
 .cards::-webkit-scrollbar-thumb {
   background-color: gray;
   border-radius: 10px;
+}
+
+.homepage>.dashboardContent button {
+  min-width: 100%;
+  box-sizing: border-box;
+  margin: auto 0 0 0;
+  border-radius: 0;
+  border: none;
+  background-color: rgb(18, 86, 188);
+  color: white;
+}
+
+.homepage>.activity {
+  width: 90%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0 4px 10px gray;
+  padding: 0 1rem;
+  margin: 0 auto 1rem;
+  overflow: hidden;
+}
+
+.homepage>.activity>.activityBoard {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.homepage>.activity>.activityBoard>.activityTitle {
+  width: auto;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  border-bottom: solid 0.5px black;
+}
+
+.homepage>.activity>.activityBoard>.activityContent {
+  width: auto;
+  display: flex;
+  justify-content: flex-start;
+  height: 30rem;
+  margin: 0 1rem 2rem 1rem;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .departmentPage {
@@ -305,6 +353,11 @@ button:hover {
   justify-content: center;
 }
 
+.departmentPage.dimmed .departmentContent {
+  filter: brightness(0.7);
+  z-index: -1;
+}
+
 .departmentPage nav {
   background-color: rgb(34, 34, 35);
   position: fixed;
@@ -313,7 +366,7 @@ button:hover {
   width: 20rem;
   min-height: calc(100vh - 3.1rem);
   transition: transform 0.3s ease;
-  z-index: 1;
+  z-index: 2;
 }
 
 .departmentPage nav.closed {
