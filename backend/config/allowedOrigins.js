@@ -3,7 +3,7 @@ const allowedOrigins = [
     'http://localhost:3000',
     'https://myhrmanager.azurewebsites.net',
     'https://kind-mushroom-0d8d60b0f.7.azurestaticapps.net',
-    'https://hrmanager.phatchung.dev/'
+    'https://hrmanager.phatchung.dev'
 ]
 
 module.exports = allowedOrigins;
