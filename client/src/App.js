@@ -6,12 +6,10 @@ import Employees from './Employees';
 import Login from './Login';
 import Home from './Home';
 import Footer from './Footer';
-import SearchItem from './SearchItem';
 import apiRequest from './apiRequest';
 
 import { useState, useEffect } from 'react';
-import { SiEraser } from 'react-icons/si';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 function App() {
   const API_URL = "https://myhrmanager.azurewebsites.net/employees";
 
@@ -87,7 +85,6 @@ function App() {
   }
 
   const handleChange = async (id) => {
-    const token = localStorage.getItem('accessToken');
     const listItems = items.map(item => item.id === id ? { ...item, checked: !item.checked } : item);
     setItems(listItems);
 
@@ -106,7 +103,6 @@ function App() {
   }
 
   const handleDelete = async (id) => {
-    const token = localStorage.getItem('accessToken');
     const listItems = items.filter(item => item.id !== id);
     setItems(listItems);
 

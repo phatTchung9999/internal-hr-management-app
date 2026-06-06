@@ -1,11 +1,7 @@
 import React from 'react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 import NavBar from './NavBar';
 
 const Departments = ({department, setDepartment, navBar, setNavBar}) => {
-    const navigate = useNavigate();
     return (
         <main className='departmentPage'>
                 <NavBar 

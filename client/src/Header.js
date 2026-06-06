@@ -1,7 +1,5 @@
 import React from 'react';
-import SearchItem from './SearchItem';
 import Logout from './Logout';
-import {Routes, Route} from 'react-router-dom';
 
 const Header = ({auth, setAuth, title, clearStorage, search, setSearch }) => {
 
