@@ -62,5 +62,5 @@ jobs:
         with:
           app-name: 'myhrmanager'
           slot-name: 'Production'
-          package: ./backend
+          package: .
           
