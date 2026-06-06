@@ -14,7 +14,7 @@ const Login = ({
 
   useEffect(() => console.log(auth), [auth])
 
-  const AUTH_API = "http://localhost:3500/auth";
+  const AUTH_API = "https://myhrmanager.azurewebsites.net/auth";
 
   const navigate = useNavigate()
 

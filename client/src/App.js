@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { SiEraser } from 'react-icons/si';
 import { Routes, Route, Navigate } from 'react-router-dom';
 function App() {
-  const API_URL = "http://localhost:3500/employees";
+  const API_URL = "https://myhrmanager.azurewebsites.net/employees";
 
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState('');
