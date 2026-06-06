@@ -35,6 +35,10 @@ app.use('/register', require('./routes/register'));
 app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
 
+app.get('/health', (req, res) => {
+    res.json({ status: 'ok' });
+});
+
 app.use(verifyJWT);
 app.use('/employees', require('./routes/api/employees'));
 
