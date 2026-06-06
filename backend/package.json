@@ -4,8 +4,11 @@
   "description": "Express.js practice",
   "main": "server.js",
   "scripts": {
-    "start": "node server",
-    "dev": "npx nodemon server"
+    "start": "node server.js",
+    "dev": "npx nodemon server.js"
+  },
+  "engines": {
+    "node": "20.x"
   },
   "keywords": [],
   "author": "",
