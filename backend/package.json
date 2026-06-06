@@ -7,9 +7,6 @@
     "start": "node server.js",
     "dev": "npx nodemon server.js"
   },
-  "engines": {
-    "node": "20.x"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
