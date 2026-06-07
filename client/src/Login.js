@@ -20,10 +20,12 @@ const Login = ({
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
     if (!username || !password) {
       setMessage('Please type in username and password.');
       return;
     }
+
     try {
       const response = await fetch(AUTH_API, {
         method: 'POST',
@@ -38,7 +40,9 @@ const Login = ({
       })
 
       if (!response.ok) {
-        setMessage('username or password is not correct!');
+        setMessage('Username or password is not correct!');
+        setUsername('');
+        setPassword('');
         return;
       } else {
         const data = await response.json();
