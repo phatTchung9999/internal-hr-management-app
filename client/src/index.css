@@ -555,7 +555,7 @@ button:hover {
   display: flex;
   justify-content: space-between;
   height: fit-content;
-  padding: 2rem 0;
+  padding: 2rem 2rem;
 }
 
 .employeePhotoName .photo {
@@ -573,6 +573,7 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 2rem;
 }
 
 .employeePhotoName .name {
@@ -594,25 +595,34 @@ button:hover {
 }
 
 .optionsBar {
-  width: 100%;
-  height: fit-content;
   display: flex;
-  flex-wrap: wrap;
-  border-bottom: solid lightgray 1px;
+  gap: 0.5rem;
+  border-bottom: 1px solid #ddd;
+  padding: 0 1.5rem;
 }
 
-.optionsBar button {
-  flex-grow: 1;
-  background-color: white;
-  border: none;
-  border-radius: 0%;
+.option {
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  padding: 1rem 0.75rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #333;
+  border-bottom: 3px solid transparent;
 }
 
-.optionsBar button:hover {
-  background-color: lightgray;
-  color: white;
+.option:hover {
+  color: #000;
+  background-color: #f7f7f7;
 }
 
+.option.active {
+  font-weight: 600;
+  color: #000;
+  border-bottom: 3px solid #000;
+}
 
 .employeesDashboard>.dashboardContent>.employeeCards {
   width: 49%;
@@ -744,6 +754,48 @@ button:hover {
     flex-direction: column;
   }
 
+  .optionsBar {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 1.5rem;
+    border-bottom: 1px solid #ddd;
+    padding: 0 1.5rem;
+  }
+  
+  .option {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  
+    height: auto;
+    min-width: auto;
+    margin: 0;
+  
+    background: none;
+    border: none;
+    padding: 1rem 1rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #333;
+    border-bottom: 3px solid transparent;
+  }
+  
+  .option.active {
+    font-weight: 600;
+    color: #000;
+    border-bottom: 3px solid #000;
+  }
+
+  .optionsBar::-webkit-scrollbar {
+    height: 1px;
+  }
+  
+  .optionsBar::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 10px;
+  }
+  
 
 
   .box1 {

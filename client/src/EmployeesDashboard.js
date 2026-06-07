@@ -16,6 +16,7 @@ const EmployeesDashboard = ({
 }) => {
     const [searchForm, setSearchForm] = useState(false);
     const [showEmployee, setShowEmployee] = useState(false);
+    const [activeOption, setActiveOption] = useState('Team');
     const title = department ? department[0].toUpperCase() + department.slice(1) : '';
     return (
         <main className='employeesDashboard' >
@@ -26,7 +27,10 @@ const EmployeesDashboard = ({
                 setDepartment={setDepartment}
             />
             <section className='searchBar'>
-                <h2>{`${title} Members`}</h2>
+                <h2 
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => setShowEmployee(false)} 
+                >{`${title} Members`}</h2>
                 <div>
                     {!searchForm ?
                         <button onClick={() => setSearchForm(!searchForm)}>
@@ -140,13 +144,16 @@ const EmployeesDashboard = ({
                                 </table>
                             </div>
                         </div>
-                        <div className='optionsBar'>
-                            <button></button>
-                            <button></button>
-                            <button></button>
-                            <button></button>
-                            <button></button>
-                            <button></button>
+                        <div className="optionsBar">
+                            {["Team", "Documents", "Leaves", "Payroll", "Parking", "Performance", "More"].map(option => (
+                                <button
+                                    key={option}
+                                    className={`option ${activeOption === option ? "active" : ""}`}
+                                    onClick={() => setActiveOption(option)}
+                                >
+                                    {option}
+                                </button>
+                            ))}
                         </div>
                     </div>
 
