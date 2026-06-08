@@ -2,21 +2,22 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 
-const NavBar = ({navBar, setNavBar, department, setDepartment}) => {
+const NavBar = ({navBar, setNavBar, departments, setDepartments}) => {
+
     const navigate = useNavigate();
     return (
         <>
             <nav className={navBar ? 'open' : 'closed'}>
-                <button onClick={() => {
-                    setNavBar(false); 
-                    setDepartment('executive');
-                    navigate('/departments/executive');
-                }}>Executive</button>
-                <button>Production</button>
-                <button>Research & Development</button>
-                <button>Marketing</button>
-                <button>Sales</button>
-                <button>Finance</button>
+                {
+                    departments?.map(departement => (
+                        <button key={departement.id} onClick={() => {
+                            setNavBar(false);
+                            navigate(`/departments/${departement.name.toLowerCase()}`);
+                        }}>
+                            {departement.name}
+                        </button>
+                    ))
+                }
                 <button onClick={() => {
                     setNavBar(false); 
                     navigate('/home');

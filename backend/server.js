@@ -40,6 +40,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use(verifyJWT);
+app.use('/departments', require('./routes/api/departments'));
 app.use('/employees', require('./routes/api/employees'));
 
 

@@ -11,7 +11,8 @@ import apiRequest from './apiRequest';
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 function App() {
-  const API_URL = "https://myhrmanager.azurewebsites.net/employees";
+  const API_EMPLOYEE = "https://myhrmanager.azurewebsites.net/employees";
+  const API_DEPARTMENTS = "https://myhrmanager.azurewebsites.net/departments";
 
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState('');
@@ -21,7 +22,7 @@ function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [department, setDepartment] = useState('');
+  const [departments, setDepartments] = useState([]);
   const [navBar, setNavBar] = useState(false);
   const [auth, setAuth] = useState(() => {
     return localStorage.getItem('accessToken') ? true : false
@@ -30,9 +31,10 @@ function App() {
   useEffect(() => {
     if (!auth) return;
     const token = localStorage.getItem('accessToken');
-    const fetchItems = async () => {
+
+    const fetchEmployeeData = async () => {
       try {
-        const response = await fetch(API_URL, {
+        const response = await fetch(API_EMPLOYEE, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -49,9 +51,31 @@ function App() {
         setIsLoading(false);
       }
     };
-    
+
+    const fetchDepartmentData = async () => {
+      try {
+        const response = await fetch(API_DEPARTMENTS, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (!response.ok) throw Error('Did not received expected data');
+        const listDepartments = await response.json();
+        setDepartments(listDepartments);
+        setFetchError(null);
+      } catch (err) {
+        setFetchError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+
     setTimeout(() => {
-      (async () => await fetchItems())();
+      (async () => await fetchEmployeeData())();
+      (async () => await fetchDepartmentData())();
     }, 500)
 
 
@@ -72,7 +96,7 @@ function App() {
       body: JSON.stringify(myNewItem)
     };
 
-    const result = await apiRequest(API_URL, postOptions);
+    const result = await apiRequest(API_EMPLOYEE, postOptions);
     if (result) setFetchError(result);
   }
 
@@ -89,7 +113,7 @@ function App() {
     setItems(listItems);
 
     const myItem = listItems.filter(item => item.id === id);
-    const reqUrl = `${API_URL}/${id}`
+    const reqUrl = `${API_EMPLOYEE}/${id}`
     const updateOptions = {
       method: 'PATCH',
       headers: {
@@ -106,7 +130,7 @@ function App() {
     const listItems = items.filter(item => item.id !== id);
     setItems(listItems);
 
-    const reqUrl = `${API_URL}/${id}`;
+    const reqUrl = `${API_EMPLOYEE}/${id}`;
     const deleteOoptions = {
       method: 'DELETE'
     };
@@ -149,14 +173,14 @@ function App() {
           username={username}
         /> }/>
         <Route path="/departments" element={<Departments 
-          department={department}
-          setDepartment={setDepartment}
+          departments={departments}
+          setDepartments={setDepartments}
           navBar={navBar}
           setNavBar={setNavBar}
         />}/>
         <Route path="/departments/executive" element={<EmployeesDashboard 
-          department={department}
-          setDepartment={setDepartment}
+          departments={departments}
+          setDepartments={setDepartments}
           search={search}
           setSearch={setSearch}
           navBar={navBar}

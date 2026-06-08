@@ -1,14 +1,14 @@
 import React from 'react'
 import NavBar from './NavBar';
 
-const Departments = ({department, setDepartment, navBar, setNavBar}) => {
+const Departments = ({ departments, setDepartments, navBar, setNavBar }) => {
     return (
         <main className='departmentPage'>
                 <NavBar 
                     navBar={navBar}
                     setNavBar={setNavBar}
-                    department={department}
-                    setDepartment={setDepartment}
+                    departments={departments}
+                    setDepartments={setDepartments}
                 />
             <section className='departmentContent'>
                 <div className='box1'>
