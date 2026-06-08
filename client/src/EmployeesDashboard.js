@@ -7,30 +7,33 @@ import { useState } from 'react';
 
 
 const EmployeesDashboard = ({
-    department,
-    setDepartment,
+    departments,
+    setDepartments,
     search,
     setSearch,
     navBar,
-    setNavBar
+    setNavBar,
+    activeDepartment,
+    setActiveDepartment
 }) => {
     const [searchForm, setSearchForm] = useState(false);
     const [showEmployee, setShowEmployee] = useState(false);
     const [activeOption, setActiveOption] = useState('Team');
-    const title = department ? department[0].toUpperCase() + department.slice(1) : '';
     return (
         <main className='employeesDashboard' >
             <NavBar
                 navBar={navBar}
                 setNavBar={setNavBar}
-                department={department}
-                setDepartment={setDepartment}
+                departments={departments}
+                setDepartments={setDepartments}
+                activeDepartment={activeDepartment}
+                setActiveDepartment={setActiveDepartment}
             />
             <section className='searchBar'>
                 <h2 
                     style={{ cursor: 'pointer' }}
                     onClick={() => setShowEmployee(false)} 
-                >{`${title} Members`}</h2>
+                >{`${activeDepartment?.name} members`}</h2>
                 <div>
                     {!searchForm ?
                         <button onClick={() => setSearchForm(!searchForm)}>

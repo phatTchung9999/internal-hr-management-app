@@ -1,7 +1,7 @@
 import React from 'react'
 import NavBar from './NavBar';
 
-const Departments = ({ departments, setDepartments, navBar, setNavBar }) => {
+const Departments = ({ departments, setDepartments, navBar, setNavBar, activeDepartment, setActiveDepartment }) => {
     return (
         <main className='departmentPage'>
                 <NavBar 
@@ -9,6 +9,8 @@ const Departments = ({ departments, setDepartments, navBar, setNavBar }) => {
                     setNavBar={setNavBar}
                     departments={departments}
                     setDepartments={setDepartments}
+                    activeDepartment={activeDepartment}
+                    setActiveDepartment={setActiveDepartment}
                 />
             <section className='departmentContent'>
                 <div className='box1'>

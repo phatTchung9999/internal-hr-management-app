@@ -9,7 +9,13 @@ import Footer from './Footer';
 import apiRequest from './apiRequest';
 
 import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+
+const ProtectedRoute = ({ auth, children }) => {
+  if (!auth) return <Navigate to="/" replace />;
+  return children;
+};
+
 function App() {
   const API_EMPLOYEE = "https://myhrmanager.azurewebsites.net/employees";
   const API_DEPARTMENTS = "https://myhrmanager.azurewebsites.net/departments";
@@ -23,6 +29,7 @@ function App() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [departments, setDepartments] = useState([]);
+  const [activeDepartment, setActiveDepartment] = useState('');
   const [navBar, setNavBar] = useState(false);
   const [auth, setAuth] = useState(() => {
     return localStorage.getItem('accessToken') ? true : false
@@ -144,6 +151,22 @@ function App() {
     setItems([]);
     console.log('The localStorage is cleared');
   }
+
+  const loginProps = {
+    isLoading,
+    setIsLoading,
+    fetchError,
+    setFetchError,
+    username,
+    setUsername,
+    password,
+    setPassword,
+    message,
+    setMessage,
+    auth,
+    setAuth,
+  };
+
   return (
     <div className='App'>
       <Header
@@ -155,52 +178,68 @@ function App() {
         setAuth={setAuth}
       />
       <Routes>
-        <Route path="/" element={<Login 
-          isLoading={isLoading}
-          setIsLoading={setIsLoading}
-          fetchError={fetchError}
-          setFetchError={setFetchError}
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-          message={message}
-          setMessage={setMessage}
-          auth={auth}
-          setAuth={setAuth}
-        />}/>
-        <Route path="/home" element={<Home 
-          username={username}
-        /> }/>
-        <Route path="/departments" element={<Departments 
-          departments={departments}
-          setDepartments={setDepartments}
-          navBar={navBar}
-          setNavBar={setNavBar}
-        />}/>
-        <Route path="/departments/executive" element={<EmployeesDashboard 
-          departments={departments}
-          setDepartments={setDepartments}
-          search={search}
-          setSearch={setSearch}
-          navBar={navBar}
-          setNavBar={setNavBar}
-        />}/>
-        <Route path="/employees" element={<Employees
-          newItem={newItem}
-          setNewItem={setNewItem}
-          handleSubmit={handleSubmit}
-          handleDelete={handleDelete}
-          handleChange={handleChange}
-          isLoading={isLoading}
-          fetchError={fetchError}
-          items={items}
-          search={search}
-          setSearch={setSearch}
+        <Route path="/" element={<Login {...loginProps} />} />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute auth={auth}>
+              <Home username={username} />
+            </ProtectedRoute>
+          }
         />
-        }/>
-
+        <Route
+          path="/departments"
+          element={
+            <ProtectedRoute auth={auth}>
+              <Departments
+                activeDepartment={activeDepartment}
+                setActiveDepartment={setActiveDepartment}
+                departments={departments}
+                setDepartments={setDepartments}
+                navBar={navBar}
+                setNavBar={setNavBar}
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/departments/executive"
+          element={
+            <ProtectedRoute auth={auth}>
+              <EmployeesDashboard
+                activeDepartment={activeDepartment}
+                setActiveDepartment={setActiveDepartment}
+                departments={departments}
+                setDepartments={setDepartments}
+                search={search}
+                setSearch={setSearch}
+                navBar={navBar}
+                setNavBar={setNavBar}
+              />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employees"
+          element={
+            <ProtectedRoute auth={auth}>
+              <Employees
+                newItem={newItem}
+                setNewItem={setNewItem}
+                handleSubmit={handleSubmit}
+                handleDelete={handleDelete}
+                handleChange={handleChange}
+                isLoading={isLoading}
+                fetchError={fetchError}
+                items={items}
+                search={search}
+                setSearch={setSearch}
+              />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
+
       <Footer />
     </div>
   );

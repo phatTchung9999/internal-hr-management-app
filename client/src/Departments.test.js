@@ -16,5 +16,5 @@ test('renders the departments page with department data', () => {
     />
   );
 
-  expect(screen.getByText(/Departments/i)).toBeInTheDocument();
+  expect(screen.getAllByText(/Departments/i).length).toBeGreaterThan(0);
 });

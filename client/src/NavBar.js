@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 
-const NavBar = ({navBar, setNavBar, departments, setDepartments}) => {
+const NavBar = ({navBar, setNavBar, departments, setDepartments, activeDepartment, setActiveDepartment}) => {
 
     const navigate = useNavigate();
     return (
@@ -12,6 +12,7 @@ const NavBar = ({navBar, setNavBar, departments, setDepartments}) => {
                     departments?.map(departement => (
                         <button key={departement.id} onClick={() => {
                             setNavBar(false);
+                            setActiveDepartment(departement);
                             navigate(`/departments/${departement.name.toLowerCase()}`);
                         }}>
                             {departement.name}
@@ -21,6 +22,7 @@ const NavBar = ({navBar, setNavBar, departments, setDepartments}) => {
                 <button onClick={() => {
                     setNavBar(false); 
                     navigate('/home');
+                    setActiveDepartment('');
                 }}>Back to home</button>
                 <div
                     onClick={() => {
