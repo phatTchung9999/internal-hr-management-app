@@ -11,6 +11,16 @@ import apiRequest from './apiRequest';
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
+const EMPTY_EMPLOYEE = {
+  firstname: '',
+  lastname: '',
+  dateOfBirth: '',
+  gender: '',
+  ethnicity: '',
+  email: '',
+  mobileNumber: '',
+};
+
 const ProtectedRoute = ({ auth, children }) => {
   if (!auth) return <Navigate to="/" replace />;
   return children;
@@ -21,9 +31,8 @@ function App() {
   const API_DEPARTMENTS = "https://myhrmanager.azurewebsites.net/departments";
 
   const [employees, setEmployees] = useState([]);
-  const [newEmployee, setNewEmployee] = useState('');
+  const [newEmployee, setNewEmployee] = useState(EMPTY_EMPLOYEE);
   const [search, setSearch] = useState('');
-  const [searchFocused, setSearchFocused] = useState(false);
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState('');
@@ -91,7 +100,7 @@ function App() {
 
   const addEmployee = async (employee) => {
     const token = localStorage.getItem('accessToken');
-    const newEmployeeData = {item: employee, checked: false };
+    const newEmployeeData = { ...employee, checked: false };
     const listEmployees = [...employees, newEmployeeData];
     setEmployees(listEmployees);
 
@@ -109,11 +118,11 @@ function App() {
   }
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!newEmployee) return;
-    addEmployee(newEmployee);
-    setNewEmployee('');
+    if (!newEmployee.firstname) return;
+    await addEmployee(newEmployee);
+    setNewEmployee(EMPTY_EMPLOYEE);
   }
 
   const handleEmployeeChange = async (id) => {

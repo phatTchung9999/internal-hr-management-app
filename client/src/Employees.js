@@ -3,8 +3,7 @@ import AddEmployee from './AddEmployee';
 import EmployeeContent from './EmployeeContent';
 import SearchItem from './SearchItem';
 import StepBar from './StepBar';
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const Employees = ({
     employees,
@@ -37,7 +36,7 @@ const Employees = ({
                 }}
                 onClick={(e) => {
                     e.preventDefault();
-                    setAddEmployeeVisible(prev => prev = true);
+                    setAddEmployeeVisible(true);
                 }}
                 >
                     Add Employee

@@ -1,8 +1,14 @@
 import React from 'react';
-import { FaPlus } from 'react-icons/fa';
-import { useRef } from 'react';
 
 const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setNewEmployee((currentEmployee) => ({
+            ...currentEmployee,
+            [name]: value,
+        }));
+    };
 
 
 
@@ -19,18 +25,22 @@ const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
                             <label htmlFor='firstname'>First Name</label>
                             <input
                                 id='firstname'
+                                name='firstname'
                                 type='text'
                                 placeholder='First Name'
                                 value={newEmployee.firstname}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='field'>
                             <label htmlFor='lastname'>Last Name</label>
                             <input
                                 id='lastname'
+                                name='lastname'
                                 type='text'
                                 placeholder='Last Name'
                                 value={newEmployee.lastname}
+                                onChange={handleChange}
                             />
                         </div>
                     </div>
@@ -42,9 +52,11 @@ const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
                                     width: '12.5rem'
                                 }}
                                 id='dateOfBirth'
+                                name='dateOfBirth'
                                 type='date'
                                 placeholder='Date of Birth'
                                 value={newEmployee.dateOfBirth}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='field'>
@@ -52,13 +64,9 @@ const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
 
                             <select
                                 id='gender'
+                                name='gender'
                                 value={newEmployee.gender}
-                                onChange={(e) =>
-                                    setNewEmployee({
-                                        ...newEmployee,
-                                        gender: e.target.value
-                                    })
-                                }
+                                onChange={handleChange}
                             >
                                 <option value=''>Select Gender</option>
                                 <option value='Male'>Male</option>
@@ -73,13 +81,9 @@ const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
                             <select
                                 style={{ width: '26.5rem' }}
                                 id='ethnicity'
+                                name='ethnicity'
                                 value={newEmployee.ethnicity}
-                                onChange={(e) =>
-                                    setNewEmployee({
-                                        ...newEmployee,
-                                        ethnicity: e.target.value
-                                    })
-                                }
+                                onChange={handleChange}
                             >
                                 <option value=''>Select Ethnicity</option>
                                 <option value='Asian'>Asian</option>
@@ -110,23 +114,29 @@ const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
                         <label htmlFor='email'>Email</label>
                         <input
                             id='email'
+                            name='email'
                             type='email'
                             placeholder='Email'
                             value={newEmployee.email}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className='field'>
                         <label htmlFor='mobileNumber'>Mobile Number</label>
                         <input
                             id='mobileNumber'
+                            name='mobileNumber'
                             type='text'
                             placeholder='Mobile Number'
                             value={newEmployee.mobileNumber}
+                            onChange={handleChange}
                         />
                     </div>
                 </div>
 
             </div>
+
+            <button type='submit'>Save Employee</button>
 
         </form>
 
