@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const employeeSchema = new Schema({
-    fullname: {
+    firstname: {
         type: String,
         required: true
     },
-    checked: {
-        type: Boolean,
-        default: false
+    lastname: {
+        type: String,
+        required: true
     },
     title: {
         type: String,

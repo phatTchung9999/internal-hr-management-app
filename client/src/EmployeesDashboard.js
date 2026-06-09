@@ -33,7 +33,10 @@ const EmployeesDashboard = ({
                 <h2 
                     style={{ cursor: 'pointer' }}
                     onClick={() => setShowEmployee(false)} 
-                >{`${activeDepartment?.name} members`}</h2>
+                >
+                    {`${activeDepartment?.name} members`}
+                </h2>
+
                 <div>
                     {!searchForm ?
                         <button onClick={() => setSearchForm(!searchForm)}>

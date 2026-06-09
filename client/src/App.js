@@ -17,12 +17,13 @@ const ProtectedRoute = ({ auth, children }) => {
 };
 
 function App() {
-  const API_EMPLOYEE = "https://myhrmanager.azurewebsites.net/employees";
+  const API_EMPLOYEES = "https://myhrmanager.azurewebsites.net/employees";
   const API_DEPARTMENTS = "https://myhrmanager.azurewebsites.net/departments";
 
-  const [items, setItems] = useState([]);
-  const [newItem, setNewItem] = useState('');
+  const [employees, setEmployees] = useState([]);
+  const [newEmployee, setNewEmployee] = useState('');
   const [search, setSearch] = useState('');
+  const [searchFocused, setSearchFocused] = useState(false);
   const [fetchError, setFetchError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState('');
@@ -41,7 +42,7 @@ function App() {
 
     const fetchEmployeeData = async () => {
       try {
-        const response = await fetch(API_EMPLOYEE, {
+        const response = await fetch(API_EMPLOYEES, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -49,8 +50,8 @@ function App() {
           }
         });
         if (!response.ok) throw Error('Did not received expected data');
-        const listItems = await response.json();
-        setItems(listItems);
+        const listEmployees = await response.json();
+        setEmployees(listEmployees);
         setFetchError(null);
       } catch (err) {
         setFetchError(err.message);
@@ -88,11 +89,11 @@ function App() {
 
   }, [auth]);
 
-  const addItem = async (item) => {
+  const addEmployee = async (employee) => {
     const token = localStorage.getItem('accessToken');
-    const myNewItem = {item, checked: false };
-    const listItems = [...items, myNewItem];
-    setItems(listItems);
+    const newEmployeeData = {item: employee, checked: false };
+    const listEmployees = [...employees, newEmployeeData];
+    setEmployees(listEmployees);
 
     const postOptions = {
       method: 'POST',
@@ -100,44 +101,44 @@ function App() {
         'Content-Type': 'application/json', 
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(myNewItem)
+      body: JSON.stringify(newEmployeeData)
     };
 
-    const result = await apiRequest(API_EMPLOYEE, postOptions);
+    const result = await apiRequest(API_EMPLOYEES, postOptions);
     if (result) setFetchError(result);
   }
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!newItem) return;
-    addItem(newItem);
-    setNewItem('');
+    if (!newEmployee) return;
+    addEmployee(newEmployee);
+    setNewEmployee('');
   }
 
-  const handleChange = async (id) => {
-    const listItems = items.map(item => item.id === id ? { ...item, checked: !item.checked } : item);
-    setItems(listItems);
+  const handleEmployeeChange = async (id) => {
+    const listEmployees = employees.map(employee => employee.id === id ? { ...employee, checked: !employee.checked } : employee);
+    setEmployees(listEmployees);
 
-    const myItem = listItems.filter(item => item.id === id);
-    const reqUrl = `${API_EMPLOYEE}/${id}`
+    const myEmployee = listEmployees.filter(employee => employee.id === id);
+    const reqUrl = `${API_EMPLOYEES}/${id}`
     const updateOptions = {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({checked: myItem[0].checked})
+      body: JSON.stringify({checked: myEmployee[0].checked})
     }
 
     const result = await apiRequest(reqUrl, updateOptions);
     if (result) return setFetchError(result);
   }
 
-  const handleDelete = async (id) => {
-    const listItems = items.filter(item => item.id !== id);
-    setItems(listItems);
+  const handleDeleteEmployee = async (id) => {
+    const listEmployees = employees.filter(employee => employee.id !== id);
+    setEmployees(listEmployees);
 
-    const reqUrl = `${API_EMPLOYEE}/${id}`;
+    const reqUrl = `${API_EMPLOYEES}/${id}`;
     const deleteOoptions = {
       method: 'DELETE'
     };
@@ -147,8 +148,8 @@ function App() {
   }
 
   const clearStorage = () => {
-    localStorage.removeItem('shoppinglist');
-    setItems([]);
+    localStorage.removeItem('employees');
+    setEmployees([]);
     console.log('The localStorage is cleared');
   }
 
@@ -192,6 +193,7 @@ function App() {
           element={
             <ProtectedRoute auth={auth}>
               <Departments
+                employees={employees}
                 activeDepartment={activeDepartment}
                 setActiveDepartment={setActiveDepartment}
                 departments={departments}
@@ -224,14 +226,14 @@ function App() {
           element={
             <ProtectedRoute auth={auth}>
               <Employees
-                newItem={newItem}
-                setNewItem={setNewItem}
+                newEmployee={newEmployee}
+                setNewEmployee={setNewEmployee}
                 handleSubmit={handleSubmit}
-                handleDelete={handleDelete}
-                handleChange={handleChange}
+                handleDeleteEmployee={handleDeleteEmployee}
+                handleEmployeeChange={handleEmployeeChange}
                 isLoading={isLoading}
                 fetchError={fetchError}
-                items={items}
+                employees={employees}
                 search={search}
                 setSearch={setSearch}
               />

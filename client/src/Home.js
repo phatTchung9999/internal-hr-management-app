@@ -27,7 +27,7 @@ const Home = ({ username }) => {
           <div className="card">
             <h3>Applications</h3>
             <p>Review job applications</p>
-            <button href="#">Open</button>
+            <button onClick={() => navigate('/applications')}>Open</button>
           </div>
 
           <div className="card">

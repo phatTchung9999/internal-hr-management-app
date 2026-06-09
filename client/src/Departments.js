@@ -1,7 +1,9 @@
 import React from 'react'
 import NavBar from './NavBar';
+import { useNavigate } from 'react-router-dom';
 
-const Departments = ({ departments, setDepartments, navBar, setNavBar, activeDepartment, setActiveDepartment }) => {
+const Departments = ({ departments, setDepartments, navBar, setNavBar, activeDepartment, setActiveDepartment, employees }) => {
+    const navigate = useNavigate();
     return (
         <main className='departmentPage'>
                 <NavBar 
@@ -31,14 +33,18 @@ const Departments = ({ departments, setDepartments, navBar, setNavBar, activeDep
                 </div>
                 <div className='box2'>
                     <div className='box2Item'>
-                        <h1>06</h1>
+                        <h1>
+                            {departments.length}
+                        </h1>
                         <p>Departments</p>
                         <button onClick={() => setNavBar(true)}>View Departments</button>
                     </div>
                     <div className='box2Item'>
-                        <h1>0</h1>
+                        <h1>
+                            {employees ? employees.length : 0}
+                        </h1>
                         <p>Employees</p>
-                        <button>View Employees</button>
+                        <button onClick={() => navigate('/employees')}>View Employees</button>
                     </div>
                 </div>
                 <div className='box3'>
