@@ -17,6 +17,8 @@ const AddEmployee = ({ newEmployee, setNewEmployee, addEmployeeStep, setAddEmplo
         if (submitted) {
             setAddEmployeeVisible(false);
             setAddEmployeeStep('Personal');
+        } else {
+            window.alert('Employee could not be saved. Check required fields, backend validation, and your role permissions.');
         }
     };
 

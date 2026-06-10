@@ -43,6 +43,7 @@ function App() {
   const API_EMPLOYEES = "https://myhrmanager.azurewebsites.net/employees";
   const API_DEPARTMENTS = "https://myhrmanager.azurewebsites.net/departments";
 
+
   const [employees, setEmployees] = useState([]);
   const [newEmployee, setNewEmployee] = useState(EMPTY_EMPLOYEE);
   const [search, setSearch] = useState('');
