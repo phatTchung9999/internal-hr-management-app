@@ -1,6 +1,5 @@
 import React from 'react';
 import { MdAddToPhotos } from "react-icons/md";
-import { GrFormNext } from "react-icons/gr";
 
 const AddEmployee = ({ newEmployee, setNewEmployee, addEmployeeStep, setAddEmployeeStep, handleSubmit, setAddEmployeeVisible }) => {
 
