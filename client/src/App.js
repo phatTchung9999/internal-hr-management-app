@@ -12,26 +12,26 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 const EMPTY_EMPLOYEE = {
-    firstname: '',
-    lastname: '',
-    dateOfBirth: '',
-    gender: '',
-    ethnicity: '',
+  firstname: '',
+  lastname: '',
+  dateOfBirth: '',
+  gender: '',
+  ethnicity: '',
 
-    email: '',
-    mobileNumber: '',
-    address: '',
+  email: '',
+  mobileNumber: '',
+  address: '',
 
-    title: '',
-    department: '',
-    recruiter: '',
+  title: '',
+  department: '',
+  recruiter: '',
 
-    rate: '',
-    hireDate: '',
-    employmentStatus: '', // Full-Time, Part-Time, Contractor
-    manager: '',
+  rate: '',
+  hireDate: '',
+  employmentStatus: '', // Full-Time, Part-Time, Contractor
+  manager: '',
 
-    photo: '',
+  photo: '',
 };
 
 const ProtectedRoute = ({ auth, children }) => {
@@ -111,31 +111,35 @@ function App() {
 
   }, [auth]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!newEmployee.firstname) return false;
+    const result = await addEmployee(newEmployee);
+    if (result) return false;
+    setNewEmployee(EMPTY_EMPLOYEE);
+    return true;
+  }
+
   const addEmployee = async (employee) => {
     const token = localStorage.getItem('accessToken');
-    const newEmployeeData = { ...employee, checked: false };
-    const listEmployees = [...employees, newEmployeeData];
-    setEmployees(listEmployees);
-
     const postOptions = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', 
+        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify(newEmployeeData)
+      body: JSON.stringify(employee)
     };
 
     const result = await apiRequest(API_EMPLOYEES, postOptions);
-    if (result) setFetchError(result);
-  }
+    if (result) {
+      setFetchError(result);
+      return result;
+    }
 
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!newEmployee.firstname) return;
-    await addEmployee(newEmployee);
-    setNewEmployee(EMPTY_EMPLOYEE);
+    setEmployees(currentEmployees => [...currentEmployees, { ...employee, checked: false }]);
+    return null;
   }
 
   const handleEmployeeChange = async (id) => {
@@ -149,7 +153,7 @@ function App() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({checked: myEmployee[0].checked})
+      body: JSON.stringify({ checked: myEmployee[0].checked })
     }
 
     const result = await apiRequest(reqUrl, updateOptions);

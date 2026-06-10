@@ -7,24 +7,35 @@ const getAllEmployees = async (req, res) => {
     }
 
 const createNewEmployee = async (req, res) => {
-    if (!req?.body?.firstname) {
-        return res.status(400).json({'message': 'First name are required'});
+    if (!req?.body?.firstname || !req?.body?.lastname || !req?.body?.email || !req?.body?.mobileNumber || !req?.body?.title || !req?.body?.department) {
+        return res.status(400).json({ message: 'Firstname, lastname, email, mobile number, title, and department are required.' });
     }
 
     try {
-        const result = await Employee.create(
-            {
-                firstname: req.body.firstname
-            }
-        );
+        const result = await Employee.create({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            dateOfBirth: req.body.dateOfBirth,
+            gender: req.body.gender,
+            ethnicity: req.body.ethnicity,
+            email: req.body.email,
+            mobileNumber: req.body.mobileNumber,
+            address: req.body.address,
+            title: req.body.title,
+            rate: req.body.rate,
+            department: req.body.department,
+            manager: req.body.manager,
+            hireDate: req.body.hireDate,
+            employmentStatus: req.body.employmentStatus,
+            recruiter: req.body.recruiter,
+            photo: req.body.photo,
+        });
         res.status(201).json(result);
-
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Server error' });
     }
-
-    }
+}
 
 const updateEmployee = async (req, res) => {
     if (!req?.body?.id) {

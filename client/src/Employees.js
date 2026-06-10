@@ -17,7 +17,7 @@ const Employees = ({
     handleEmployeeChange, 
     handleDeleteEmployee,
     }) => {
-
+        const [addEmployeeStep, setAddEmployeeStep] = useState('Personal')
         const [addEmployeeVisible, setAddEmployeeVisible] = useState(false);
     return (
         <>
@@ -59,11 +59,19 @@ const Employees = ({
                     {addEmployeeVisible && 
                     <div className='popupOverlay'>
                         <div className='addEmployeeContainer'>
-                            <StepBar />
+                            <StepBar 
+                                addEmployeeStep={addEmployeeStep}
+                                setAddEmployeeStep={setAddEmployeeStep}
+                                addEmployeeVisible={addEmployeeVisible}
+                                setAddEmployeeVisible={setAddEmployeeVisible}
+                            />
                             <AddEmployee
                                 newEmployee={newEmployee}
                                 setNewEmployee={setNewEmployee}
+                                addEmployeeStep={addEmployeeStep}
+                                setAddEmployeeStep={setAddEmployeeStep}
                                 handleSubmit={handleSubmit}
+                                setAddEmployeeVisible={setAddEmployeeVisible}
                             />
                         </div>
                     </div>
