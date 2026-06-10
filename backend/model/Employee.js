@@ -1,41 +1,101 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const employeeSchema = new Schema({
+const employeeSchema = new Schema(
+  {
     firstname: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
+      trim: true,
     },
-    lastname: {
-        type: String,
-        required: true
-    },
-    title: {
-        type: String,
-        required: true
-    },
-    location: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    phone: {
-        type: String,
-        required: true
-    },
-    mobile: {
-        type: String,
-        required: true
-    },
-    department: {
-        type: Schema.Types.ObjectId,
-        ref: 'Department',
-        required: true
-    }
-})
 
+    lastname: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    dateOfBirth: {
+      type: Date,
+    },
+
+    gender: {
+      type: String,
+      enum: ['Male', 'Female', 'Other', ''],
+      default: '',
+    },
+
+    ethnicity: {
+      type: String,
+      default: '',
+    },
+
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      lowercase: true,
+    },
+
+    mobileNumber: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    address: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    rate: {
+      type: Number,
+      default: 0,
+    },
+
+    department: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    manager: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+
+    hireDate: {
+      type: Date,
+    },
+
+    employmentStatus: {
+      type: String,
+      enum: ['Full-Time', 'Part-Time', 'Contractor', 'Intern', 'Temporary', ''],
+      default: '',
+    },
+
+    recruiter: {
+      type: String,
+      default: '',
+      trim: true,
+    },
+
+    photo: {
+      type: String,
+      default: '',
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 module.exports = mongoose.model('Employee', employeeSchema);

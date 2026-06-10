@@ -1,4 +1,5 @@
 import React from 'react';
+import { MdAddToPhotos } from "react-icons/md";
 
 const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
 
@@ -13,7 +14,6 @@ const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
 
 
     return (
-
         <form className='addForm' onSubmit={handleSubmit}>
             <div style={{
                 width: '100%',
@@ -48,9 +48,6 @@ const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
                         <div className='field'>
                             <label htmlFor='dateOfBirth'>Date of Birth</label>
                             <input
-                                style={{
-                                    width: '12.5rem'
-                                }}
                                 id='dateOfBirth'
                                 name='dateOfBirth'
                                 type='date'
@@ -79,7 +76,6 @@ const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
                         <div className='field'>
                             <label htmlFor='ethnicity'>Ethnicity</label>
                             <select
-                                style={{ width: '26.5rem' }}
                                 id='ethnicity'
                                 name='ethnicity'
                                 value={newEmployee.ethnicity}
@@ -101,7 +97,20 @@ const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
                     </div>
                 </div>
                 <div className='photo'>
-                    Photo
+                    <div className='photoField'>
+                        <label htmlFor='photo'>
+                            <MdAddToPhotos />
+                            <p>Upload Employee Photo</p>
+                        </label>
+
+                        <input
+                            id='photo'
+                            name='photo'
+                            type='file'
+                            accept='image/*'
+                            hidden
+                        />
+                    </div>
                 </div>
             </div>
             <div style={{
@@ -109,7 +118,7 @@ const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
                 display: 'flex',
                 margin: '2rem 0'
             }}>
-                <div className='row' style={{width: '100%'}}>
+                <div className='row' style={{ width: '100%' }}>
                     <div className='field'>
                         <label htmlFor='email'>Email</label>
                         <input
@@ -135,9 +144,156 @@ const AddEmployee = ({ newEmployee, setNewEmployee, handleSubmit }) => {
                 </div>
 
             </div>
+            <div style={{
+                width: '100%',
+                display: 'flex',
+            }}>
+                <div className='row' style={{ width: '100%' }}>
+                    <div className='field'>
+                        <label htmlFor='address'>Address</label>
+                        <input
+                            id='address'
+                            name='address'
+                            type='text'
+                            placeholder='Street, Apt #, City, State, ZIP'
+                            value={newEmployee.address}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
 
-            <button type='submit'>Save Employee</button>
+            </div>
+            <div
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                    margin: '2rem 0'
+                }}
+            >
+                <div className='row' style={{ width: '100%' }}>
+                    <div className='field'>
+                        <label htmlFor='title'>Title</label>
+                        <input
+                            id='title'
+                            name='title'
+                            type='text'
+                            placeholder='Title'
+                            value={newEmployee.title}
+                            onChange={handleChange}
+                        />
+                    </div>
 
+                    <div className='field'>
+                        <label htmlFor='rate'>Rate</label>
+                        <input
+                            id='rate'
+                            name='rate'
+                            type='number'
+                            placeholder='Rate'
+                            value={newEmployee.rate}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
+            </div>
+            <div
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                }}
+            >
+                <div className='row' style={{ width: '100%' }}>
+                    <div className='field'>
+                        <label htmlFor='department'>Department</label>
+                        <input
+                            id='department'
+                            name='department'
+                            type='text'
+                            placeholder='Department'
+                            value={newEmployee.department}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className='field'>
+                        <label htmlFor='manager'>Manager</label>
+                        <input
+                            id='manager'
+                            name='manager'
+                            type='text'
+                            placeholder='Manager Name'
+                            value={newEmployee.manager}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                </div>
+            </div>
+            <div
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                    margin: '2rem 0'
+                }}
+            >
+                <div className='row' style={{ width: '100%' }}>
+                    <div className='field'>
+                        <label htmlFor='hireDate'>Hire Date</label>
+                        <input
+                            id='hireDate'
+                            name='hireDate'
+                            type='date'
+                            value={newEmployee.hireDate}
+                            onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className='field'>
+                        <label htmlFor='employmentStatus'>Employment Status</label>
+
+                        <select
+                            id='employmentStatus'
+                            name='employmentStatus'
+                            value={newEmployee.employmentStatus}
+                            onChange={handleChange}
+                        >
+                            <option value=''>Select Status</option>
+                            <option value='Full-Time'>Full-Time</option>
+                            <option value='Part-Time'>Part-Time</option>
+                            <option value='Contractor'>Contractor</option>
+                            <option value='Intern'>Intern</option>
+                            <option value='Temporary'>Temporary</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                }}
+            >
+                <div className='row' style={{ width: '100%' }}>
+                    <div className='field'>
+                        <label htmlFor='recruiter'>Recruiter</label>
+                        <input
+                            id='recruiter'
+                            name='recruiter'
+                            type='text'
+                            placeholder='Recruiter'
+                            value={newEmployee.recruiter}
+                            onChange={handleChange}
+                        />
+                    </div>
+                </div>
+            </div>
+
+
+            <div style={{
+                width: '100%',
+                margin: '4rem 0'
+            }}>
+                <button type='submit'>Save Employee</button>
+            </div>
         </form>
 
     )

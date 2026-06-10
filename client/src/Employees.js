@@ -57,6 +57,7 @@ const Employees = ({
                         />
                     }
                     {addEmployeeVisible && 
+                    <div className='popupOverlay'>
                         <div className='addEmployeeContainer'>
                             <StepBar />
                             <AddEmployee
@@ -65,6 +66,7 @@ const Employees = ({
                                 handleSubmit={handleSubmit}
                             />
                         </div>
+                    </div>
                     }
 
                 </main>

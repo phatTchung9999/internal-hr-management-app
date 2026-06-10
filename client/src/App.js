@@ -12,13 +12,26 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 const EMPTY_EMPLOYEE = {
-  firstname: '',
-  lastname: '',
-  dateOfBirth: '',
-  gender: '',
-  ethnicity: '',
-  email: '',
-  mobileNumber: '',
+    firstname: '',
+    lastname: '',
+    dateOfBirth: '',
+    gender: '',
+    ethnicity: '',
+
+    email: '',
+    mobileNumber: '',
+    address: '',
+
+    title: '',
+    department: '',
+    recruiter: '',
+
+    rate: '',
+    hireDate: '',
+    employmentStatus: '', // Full-Time, Part-Time, Contractor
+    manager: '',
+
+    photo: '',
 };
 
 const ProtectedRoute = ({ auth, children }) => {
