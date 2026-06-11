@@ -551,7 +551,8 @@ button:hover {
 
 
 .departmentPage nav,
-.employeesDashboard nav {
+.employeesDashboard nav,
+.employeesTrackPage nav {
   background-color: rgb(34, 34, 35);
   position: fixed;
   left: 0;
@@ -563,13 +564,15 @@ button:hover {
 }
 
 .departmentPage nav.closed,
-.employeesDashboard nav.closed {
+.employeesDashboard nav.closed,
+.employeesTrackPage nav.closed {
   transform: translateX(-100%);
 }
 
 
 .departmentPage nav button,
-.employeesDashboard nav button {
+.employeesDashboard nav button,
+.employeesTrackPage nav button {
   background-color: rgb(45, 45, 50);
   color: white;
   width: 100%;
@@ -579,12 +582,14 @@ button:hover {
 }
 
 .departmentPage nav button:hover,
-.employeesDashboard nav button:hover {
+.employeesDashboard nav button:hover,
+.employeesTrackPage nav button:hover {
   background-color: rgb(18, 86, 188);
 }
 
 .departmentPage nav div,
-.employeesDashboard nav div {
+.employeesDashboard nav div,
+.employeesTrackPage nav div {
   background-color: rgb(34, 34, 35);
   color: white;
   position: absolute;

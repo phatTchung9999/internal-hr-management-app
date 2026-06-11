@@ -37,14 +37,18 @@ const Departments = ({ departments, setDepartments, navBar, setNavBar, activeDep
                             {departments.length}
                         </h1>
                         <p>Departments</p>
-                        <button onClick={() => setNavBar(true)}>View Departments</button>
+                        <button onClick={() => {
+                            setNavBar(true);
+                        }}>View Departments</button>
                     </div>
                     <div className='box2Item'>
                         <h1>
                             {employees ? employees.length : 0}
                         </h1>
                         <p>Employees</p>
-                        <button onClick={() => navigate('/employees')}>View Employees</button>
+                        <button onClick={() => {
+                            navigate('/employees');
+                        }}>View Employees</button>
                     </div>
                 </div>
                 <div className='box3'>

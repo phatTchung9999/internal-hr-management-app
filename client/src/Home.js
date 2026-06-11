@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { IoIosNotifications } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 
-const Home = ({ username }) => {
+const Home = ({ username}) => {
 
   const navigate = useNavigate();
 
@@ -11,7 +11,7 @@ const Home = ({ username }) => {
     <main className='homepage'>
       <section className='profile'>
         <div>
-          <h3>{`Wellcome back, ${username}`}</h3>
+          <h3>{`Welcome back, ${username}`}</h3>
         </div>
         <div>
           <button>
@@ -51,7 +51,10 @@ const Home = ({ username }) => {
           <div className="card">
             <h3>Departments</h3>
             <p>View company departments</p>
-            <button onClick={() => navigate('/departments')}>Open</button>
+            <button onClick={() => {
+              navigate('/departments');
+            }
+              }>Open</button>
           </div>
 
           <div className="card">

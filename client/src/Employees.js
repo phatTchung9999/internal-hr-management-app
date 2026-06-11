@@ -3,9 +3,16 @@ import AddEmployee from './AddEmployee';
 import EmployeeContent from './EmployeeContent';
 import SearchItem from './SearchItem';
 import StepBar from './StepBar';
+import NavBar from './NavBar';
 import { useState } from 'react';
 
 const Employees = ({
+    navBar,
+    setNavBar,
+    departments,
+    setDepartments,
+    activeDepartment,
+    setActiveDepartment,
     employees,
     search,
     setSearch,
@@ -20,7 +27,15 @@ const Employees = ({
         const [addEmployeeStep, setAddEmployeeStep] = useState('Personal')
         const [addEmployeeVisible, setAddEmployeeVisible] = useState(false);
     return (
-        <>
+        <main className='employeesTrackPage'>
+            <NavBar
+                navBar={navBar}
+                setNavBar={setNavBar}
+                departments={departments}
+                setDepartments={setDepartments}
+                activeDepartment={activeDepartment}
+                setActiveDepartment={setActiveDepartment}
+            />
             <section style={{
                 display: 'flex'
             }}>
@@ -79,7 +94,7 @@ const Employees = ({
 
                 </main>
             </section>
-        </>
+        </main>
     )
 }
 

@@ -211,7 +211,9 @@ function App() {
           path="/home"
           element={
             <ProtectedRoute auth={auth}>
-              <Home username={username} />
+              <Home 
+              username={username} 
+              />
             </ProtectedRoute>
           }
         />
@@ -253,6 +255,12 @@ function App() {
           element={
             <ProtectedRoute auth={auth}>
               <Employees
+                navBar={navBar}
+                setNavBar={setNavBar}
+                departments={departments}
+                setDepartments={setDepartments}
+                activeDepartment={activeDepartment}
+                setActiveDepartment={setActiveDepartment}
                 newEmployee={newEmployee}
                 setNewEmployee={setNewEmployee}
                 handleSubmit={handleSubmit}
