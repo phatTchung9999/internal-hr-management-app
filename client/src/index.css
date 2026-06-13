@@ -99,28 +99,15 @@ ul li::before {
   justify-content: flex-start;
   align-items: center;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-  margin: 0.25rem 0;
   background-color: white;
   color: black;
 }
 
-.employee:first-child {
-  margin: 0;
-}
-
 .employee input[type="checkbox"] {
-  text-align: center;
-  width: 48px;
-  min-width: 48px;
-  height: 2.5rem;
-  height: 48px;
-  min-height: 48px;
-  cursor: pointer;
-  margin-right: 0.5rem;
-}
-
-.employee input[type="checkbox"]:focus+label {
-  text-decoration: underline;
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  min-height: 28px;
 }
 
 .employee>label {
@@ -969,7 +956,7 @@ button:hover {
   height: 22px;
 }
 
-.fakeCheckbox {
+.allSelectCheckbox {
   width: 16px;
   height: 16px;
   border: 2px solid #6f7275;

@@ -10,7 +10,7 @@ router.route('/')
     .get(verifyRoles(ROLES_LIST.User), employeesController.getAllEmployees)
     .post(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.User), employeesController.createNewEmployee)
     .put(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.User), employeesController.updateEmployee)
-    .delete(verifyRoles(ROLES_LIST.Admin), employeesController.deleteEmployee);
+    .delete(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.User), employeesController.deleteEmployee);
 
 router.route('/:id')
     .get(employeesController.getEmployee)

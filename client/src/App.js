@@ -40,10 +40,10 @@ const ProtectedRoute = ({ auth, children }) => {
 };
 
 function App() {
-  const API_EMPLOYEES = "http://localhost:3500/employees";
-  const API_DEPARTMENTS = "http://localhost:3500/departments";
-  // const API_EMPLOYEES = "https://myhrmanager.azurewebsites.net/employees";
-  // const API_DEPARTMENTS = "https://myhrmanager.azurewebsites.net/departments";
+  // const API_EMPLOYEES = "http://localhost:3500/employees";
+  // const API_DEPARTMENTS = "http://localhost:3500/departments";
+  const API_EMPLOYEES = "https://myhrmanager.azurewebsites.net/employees";
+  const API_DEPARTMENTS = "https://myhrmanager.azurewebsites.net/departments";
 
   const [employees, setEmployees] = useState([]);
   const [newEmployee, setNewEmployee] = useState(EMPTY_EMPLOYEE);
@@ -112,6 +112,68 @@ function App() {
 
 
   }, [auth]);
+
+  const handleSelectAll = async (checked) => {
+    const token = localStorage.getItem('accessToken');
+
+    const listEmployees = employees.map(employee => ({
+      ...employee,
+      checked
+    }));
+
+    setEmployees(listEmployees);
+
+    const updatePromises = listEmployees.map(employee => {
+      const updateOptions = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          id: employee._id,
+          checked: employee.checked
+        })
+      };
+
+      return apiRequest(API_EMPLOYEES, updateOptions);
+    });
+
+    const results = await Promise.all(updatePromises);
+    const error = results.find(result => result);
+
+    if (error) return setFetchError(error);
+  }
+
+  const handleDeleteSelection = async () => {
+    const token = localStorage.getItem('accessToken');
+
+    const foundEmployees = employees.filter(employee => employee.checked);
+    const listEmployees = employees.filter(employee => !employee.checked);
+
+    setEmployees(listEmployees);
+
+    const deletePromises = foundEmployees.map(employee => {
+      const deleteOptions = {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          id: employee._id
+        })
+      };
+
+      return apiRequest(API_EMPLOYEES, deleteOptions);
+    });
+
+    const results = await Promise.all(deletePromises);
+    const error = results.find(result => result);
+
+    if (error) return setFetchError(error);
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -223,8 +285,8 @@ function App() {
           path="/home"
           element={
             <ProtectedRoute auth={auth}>
-              <Home 
-              username={username} 
+              <Home
+                username={username}
               />
             </ProtectedRoute>
           }
@@ -275,7 +337,9 @@ function App() {
                 setActiveDepartment={setActiveDepartment}
                 newEmployee={newEmployee}
                 setNewEmployee={setNewEmployee}
+                handleSelectAll={handleSelectAll}
                 handleSubmit={handleSubmit}
+                handleDeleteSelection={handleDeleteSelection}
                 handleDeleteEmployee={handleDeleteEmployee}
                 handleEmployeeChange={handleEmployeeChange}
                 isLoading={isLoading}

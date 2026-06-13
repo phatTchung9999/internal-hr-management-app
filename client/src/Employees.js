@@ -21,6 +21,8 @@ const Employees = ({
     fetchError, 
     handleEmployeeChange, 
     handleDeleteEmployee,
+    handleSelectAll,
+    handleDeleteSelection
     }) => {
         const [addEmployeeStep, setAddEmployeeStep] = useState('Personal')
         const [addEmployeeVisible, setAddEmployeeVisible] = useState(false);
@@ -62,9 +64,10 @@ const Employees = ({
                             employees={employees.filter(employee => ((employee.firstname).toLowerCase()).includes(
                                 search.toLowerCase()
                             ))}
-
+                            handleSelectAll={handleSelectAll}
                             handleEmployeeChange={handleEmployeeChange}
                             handleDeleteEmployee={handleDeleteEmployee}
+                            handleDeleteSelection={handleDeleteSelection}
                         />
                     }
                     {addEmployeeVisible && 
