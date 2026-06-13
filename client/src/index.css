@@ -902,6 +902,93 @@ button:hover {
 }
 
 
+.employeeList {
+  border: solid black 1px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: lightgray;
+}
+
+.employeesTrackPage .App-content {
+  padding-top: 1rem;
+}
+
+.employeeActionBar {
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 0.25rem;
+  background-color: white;
+  color: #5f6368;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.9rem;
+}
+
+.employeeActionBarGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.employeeActionBar .iconButton {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.employeeActionBar .smallIconButton {
+  width: 24px;
+  min-width: 24px;
+}
+
+.employeeActionBar .checkboxButton {
+  width: 32px;
+  min-width: 32px;
+}
+
+.employeeActionBar .iconButton:hover,
+.employeeActionBar .iconButton:focus {
+  background-color: #f1f3f4;
+}
+
+.employeeActionBar svg {
+  width: 22px;
+  height: 22px;
+}
+
+.fakeCheckbox {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #6f7275;
+  border-radius: 2px;
+  display: block;
+}
+
+.paginationGroup {
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.rangeLabel {
+  white-space: nowrap;
+  color: #6f7275;
+  padding: 0 0.5rem;
+}
+
+
 @media (max-width: 768px) {
   .homepage>.dashboardContent>.cards {
     grid-template-columns: 1fr;

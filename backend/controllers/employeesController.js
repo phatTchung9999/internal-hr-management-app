@@ -38,16 +38,19 @@ const createNewEmployee = async (req, res) => {
 }
 
 const updateEmployee = async (req, res) => {
-    if (!req?.body?.id) {
+    const employeeId = req?.params?.id || req?.body?.id;
+
+    if (!employeeId) {
         return res.status(400).json({'message': 'ID parameter is required.'})
     }
 
-    const employee = await Employee.findOne({ _id: req.body.id }).exec();
+    const employee = await Employee.findOne({ _id: employeeId }).exec();
 
     if (!employee) {
-        return res.status(204).json({ "message": `Employee ID ${req.body.id} not found` });
+        return res.status(204).json({ "message": `Employee ID ${employeeId} not found` });
     }
-    if (req.body?.firstname) employee.firstname = req.body.firstname;
+    if (Object.prototype.hasOwnProperty.call(req.body, 'firstname')) employee.firstname = req.body.firstname;
+    if (Object.prototype.hasOwnProperty.call(req.body, 'checked')) employee.checked = req.body.checked;
 
     const result = await employee.save();
     res.json(result);

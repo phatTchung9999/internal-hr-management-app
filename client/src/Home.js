@@ -24,6 +24,16 @@ const Home = ({ username}) => {
       </section>
       <section className='dashboardContent'>
         <div className='cards'>
+
+          <div className="card">
+            <h3>Departments</h3>
+            <p>View company departments</p>
+            <button onClick={() => {
+              navigate('/departments');
+            }
+              }>Open</button>
+          </div>
+
           <div className="card">
             <h3>Applications</h3>
             <p>Review job applications</p>
@@ -46,15 +56,6 @@ const Home = ({ username}) => {
             <h3>Requests</h3>
             <p>Approve employee requests</p>
             <button href="#">Open</button>
-          </div>
-
-          <div className="card">
-            <h3>Departments</h3>
-            <p>View company departments</p>
-            <button onClick={() => {
-              navigate('/departments');
-            }
-              }>Open</button>
           </div>
 
           <div className="card">

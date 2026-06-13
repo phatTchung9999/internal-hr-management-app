@@ -9,8 +9,6 @@ import { useState } from 'react';
 const Employees = ({
     navBar,
     setNavBar,
-    departments,
-    setDepartments,
     activeDepartment,
     setActiveDepartment,
     employees,
@@ -31,8 +29,6 @@ const Employees = ({
             <NavBar
                 navBar={navBar}
                 setNavBar={setNavBar}
-                departments={departments}
-                setDepartments={setDepartments}
                 activeDepartment={activeDepartment}
                 setActiveDepartment={setActiveDepartment}
             />

@@ -40,9 +40,10 @@ const ProtectedRoute = ({ auth, children }) => {
 };
 
 function App() {
-  const API_EMPLOYEES = "https://myhrmanager.azurewebsites.net/employees";
-  const API_DEPARTMENTS = "https://myhrmanager.azurewebsites.net/departments";
-
+  const API_EMPLOYEES = "http://localhost:3500/employees";
+  const API_DEPARTMENTS = "http://localhost:3500/departments";
+  // const API_EMPLOYEES = "https://myhrmanager.azurewebsites.net/employees";
+  // const API_DEPARTMENTS = "https://myhrmanager.azurewebsites.net/departments";
 
   const [employees, setEmployees] = useState([]);
   const [newEmployee, setNewEmployee] = useState(EMPTY_EMPLOYEE);
@@ -144,17 +145,22 @@ function App() {
   }
 
   const handleEmployeeChange = async (id) => {
-    const listEmployees = employees.map(employee => employee.id === id ? { ...employee, checked: !employee.checked } : employee);
+    const token = localStorage.getItem('accessToken');
+    const listEmployees = employees.map(employee => employee._id === id ? { ...employee, checked: !employee.checked } : employee);
     setEmployees(listEmployees);
 
-    const myEmployee = listEmployees.filter(employee => employee.id === id);
-    const reqUrl = `${API_EMPLOYEES}/${id}`
+    const myEmployee = listEmployees.find(employee => employee._id === id);
+    if (!myEmployee) return setFetchError(`Employee ID ${id} not found`);
+
+    const reqUrl = `${API_EMPLOYEES}`
     const updateOptions = {
-      method: 'PATCH',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
+        ,
+        'Authorization': `Bearer ${token}`
       },
-      body: JSON.stringify({ checked: myEmployee[0].checked })
+      body: JSON.stringify({ id, checked: myEmployee.checked })
     }
 
     const result = await apiRequest(reqUrl, updateOptions);
@@ -162,12 +168,18 @@ function App() {
   }
 
   const handleDeleteEmployee = async (id) => {
-    const listEmployees = employees.filter(employee => employee.id !== id);
+    const token = localStorage.getItem('accessToken');
+    const listEmployees = employees.filter(employee => employee._id !== id);
     setEmployees(listEmployees);
 
-    const reqUrl = `${API_EMPLOYEES}/${id}`;
+    const reqUrl = `${API_EMPLOYEES}`;
     const deleteOoptions = {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ id })
     };
 
     const result = await apiRequest(reqUrl, deleteOoptions);
