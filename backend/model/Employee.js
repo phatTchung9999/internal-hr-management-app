@@ -5,6 +5,7 @@ const employeeSchema = new Schema(
   {
     checked: {
       type: Boolean,
+      default: false
     },
 
     firstname: {
