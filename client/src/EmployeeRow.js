@@ -1,23 +1,23 @@
 import React from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 // import { FaTrashAlt } from 'react-icons/fa';
 
-const EmployeeRow = ({ employee, handleEmployeeChange, handleDeleteEmployee }) => {
+const EmployeeRow = ({ employee, handleEmployeeChange}) => {
+    const navigate = useNavigate();
     return (
-        <li className="employee" key={employee._id}>
+        <li className="employee" 
+            key={employee._id}
+        >
             <input
                 type="checkbox"
                 checked={employee.checked}
                 onChange={() => handleEmployeeChange(employee._id)}
             />
-            <label>
+            <label
+                onClick={()=>  navigate(`employees/${employee._id}`)}
+            >
                 {`${employee.firstname} ${employee.lastname}, ${employee.department}, ${employee.title}`}
             </label>
-            {/* <FaTrashAlt
-                role="button"
-                tabIndex="0"
-                onDoubleClick={() => handleDeleteEmployee(employee._id)}
-                aria-label={`Delete ${employee.firstname}`}
-            /> */}
         </li>
     )
 }

@@ -101,13 +101,14 @@ ul li::before {
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   background-color: white;
   color: black;
+  margin: 0 0 0.1rem 0;
 }
 
 .employee input[type="checkbox"] {
-  width: 28px;
-  min-width: 28px;
-  height: 28px;
-  min-height: 28px;
+  width: 16px;
+  min-width: 16px;
+  height: 16px;
+  min-height: 16px;
 }
 
 .employee>label {
@@ -372,7 +373,6 @@ button:hover {
   flex-grow: 1;
   max-width: calc(100% - 25px);
   height: 3rem;
-  font-size: 1.5rem;
   border-radius: 0.25rem;
   outline: none;
 }
