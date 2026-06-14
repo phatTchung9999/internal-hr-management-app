@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import { FaTrashAlt } from 'react-icons/fa';
 
 const EmployeeRow = ({ employee, handleEmployeeChange}) => {
@@ -14,7 +14,7 @@ const EmployeeRow = ({ employee, handleEmployeeChange}) => {
                 onChange={() => handleEmployeeChange(employee._id)}
             />
             <label
-                onClick={()=>  navigate(`employees/${employee._id}`)}
+                onClick={()=>  navigate(`/employees/${employee._id}`)}
             >
                 {`${employee.firstname} ${employee.lastname}, ${employee.department}, ${employee.title}`}
             </label>

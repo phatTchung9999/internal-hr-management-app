@@ -114,6 +114,7 @@ ul li::before {
 .employee>label {
   font-size: 1rem;
   flex-grow: 1;
+  cursor: pointer;
 }
 
 .employee svg {
@@ -198,7 +199,7 @@ ul li::before {
   font-size: 1.2rem;
 }
 
-.stepBar button:hover{
+.stepBar button:hover {
   background-color: transparent;
 }
 
@@ -254,7 +255,7 @@ ul li::before {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.addForm > div {
+.addForm>div {
   width: 100%;
 }
 
@@ -538,7 +539,8 @@ button:hover {
 
 
 .departmentPage nav,
-.employeesDashboard nav,
+.departmentDashboard nav,
+.employeeDashboard nav,
 .employeesTrackPage nav {
   background-color: rgb(34, 34, 35);
   position: fixed;
@@ -551,14 +553,16 @@ button:hover {
 }
 
 .departmentPage nav.closed,
-.employeesDashboard nav.closed,
+.departmentDashboard nav.closed,
+.employeeDashboard nav.closed,
 .employeesTrackPage nav.closed {
   transform: translateX(-100%);
 }
 
 
 .departmentPage nav button,
-.employeesDashboard nav button,
+.departmentDashboard nav button,
+.employeeDashboard nav button,
 .employeesTrackPage nav button {
   background-color: rgb(45, 45, 50);
   color: white;
@@ -569,13 +573,15 @@ button:hover {
 }
 
 .departmentPage nav button:hover,
-.employeesDashboard nav button:hover,
+.departmentDashboard nav button:hover,
+.employeeDashboard nav button:hover,
 .employeesTrackPage nav button:hover {
   background-color: rgb(18, 86, 188);
 }
 
 .departmentPage nav div,
-.employeesDashboard nav div,
+.departmentDashboard nav div,
+.employeeDashboard nav div,
 .employeesTrackPage nav div {
   background-color: rgb(34, 34, 35);
   color: white;
@@ -674,7 +680,8 @@ button:hover {
   padding: 1rem 1rem;
 }
 
-.employeesDashboard {
+.departmentDashboard,
+.employeeDashboard {
   position: static;
   min-height: 100vh;
   background-color: rgb(218, 225, 237);
@@ -687,7 +694,8 @@ button:hover {
   overflow-x: hidden;
 }
 
-.employeesDashboard>.searchBar {
+.departmentDashboard .searchBar,
+.employeeDashboard .searchBar {
   display: flex;
   width: 90%;
   margin: 4rem 0 0 0;
@@ -698,7 +706,8 @@ button:hover {
   box-shadow: 0 4px 10px gray;
 }
 
-.employeesDashboard>.searchBar button {
+.departmentDashboard .searchBar button,
+.employeeDashboard .searchBar button {
   background-color: transparent;
   border: 0.1rem solid lightgray;
   color: black;
@@ -709,7 +718,8 @@ button:hover {
   gap: 0.2rem;
 }
 
-.employeesDashboard>.searchBar .searchForm input {
+.departmentDashboard>.searchBar .searchForm input,
+.employeeDashboard>.searchBar .searchForm input {
   background-color: transparent;
   border: 0.1rem solid lightgray;
   color: black;
@@ -717,7 +727,8 @@ button:hover {
   padding: 0 0.5rem;
 }
 
-.employeesDashboard>.dashboardContent {
+.departmentDashboard>.dashboardContent,
+.employeeDashboard>.dashboardContent {
   display: flex;
   width: 90%;
   height: fit-content;
@@ -727,7 +738,8 @@ button:hover {
   gap: 1rem;
 }
 
-.employeesDashboard>.dashboardContent .employeeProfile {
+.departmentDashboard>.dashboardContent .employeeProfile,
+.employeeDashboard>.dashboardContent .employeeProfile {
   width: 100%;
   background-color: white;
   height: 60rem;
@@ -737,11 +749,16 @@ button:hover {
 }
 
 .employeeProfile .employeePhotoName {
-  width: 100%;
+  width: calc(100% - 4rem);
   display: flex;
   justify-content: space-between;
   height: fit-content;
-  padding: 2rem 2rem;
+  gap: 2rem;
+  padding: 2rem;
+  margin: 2rem 2rem 0;
+  background-color: #f8fafc;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .employeePhotoName .photo {
@@ -749,17 +766,27 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 0.75rem;
 }
 
 .employeePhotoName .photo div {
-  border: solid black 1px;
-  width: 7rem;
-  height: 7rem;
+  border: 0.35rem solid #eef3fb;
+  width: 8rem;
+  height: 8rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 2rem;
+  background-color: rgb(18, 86, 188);
+  box-shadow: 0 6px 16px rgba(18, 86, 188, 0.25);
+  color: white;
+}
+
+.employeePhotoName .photo h1 {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 700;
 }
 
 .employeePhotoName .name {
@@ -767,17 +794,37 @@ button:hover {
   display: flex;
   align-items: start;
   justify-content: start;
+  min-width: 0;
+  padding-top: 0.15rem;
 }
 
 .name table {
+  width: 100%;
   table-layout: fixed;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 0.35rem;
 }
 
 .name th,
 .name td {
   text-align: left;
-  padding: 0.5rem;
+  padding: 0.85rem 1rem;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.name th {
+  width: 12rem;
+  color: #5f6368;
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+.name td {
+  color: #202124;
+  font-weight: normal;
+  background-color: white;
+  border-radius: 0.35rem;
 }
 
 .optionsBar {
@@ -785,14 +832,27 @@ button:hover {
   gap: 0.5rem;
   border-bottom: 1px solid #ddd;
   padding: 0 1.5rem;
+  overflow-x: auto;
 }
 
+  .optionsBar::-webkit-scrollbar {
+    height: 1px;
+  }
+
+  .optionsBar::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 10px;
+  }
+
+
 .option {
+  min-width: fit-content;
   background: none;
   border-left: none;
   border-right: none;
   border-top: none;
-  padding: 1rem 0.75rem;
+  padding: 1rem 1rem;
+  margin: 0 0.5rem;
   cursor: pointer;
   font-size: 1.1rem;
   color: #333;
@@ -810,7 +870,8 @@ button:hover {
   border-bottom: 3px solid #000;
 }
 
-.employeesDashboard>.dashboardContent>.employeeCards {
+.departmentDashboard>.dashboardContent>.employeeCards,
+.employeeDashboard>.dashboardContent>.employeeCards {
   width: 49%;
   display: flex;
   align-items: start;
@@ -820,7 +881,7 @@ button:hover {
 }
 
 
-.employeesDashboard>.dashboardContent>.summaryCards {
+.departmentDashboard>.dashboardContent>.summaryCards {
   width: 49%;
   display: flex;
   flex-direction: column;
@@ -1003,28 +1064,40 @@ button:hover {
     padding: 0rem 1.5rem;
   }
 
-  .employeesDashboard>.dashboardContent {
+  .departmentDashboard>.dashboardContent,
+  .employeeDashboard>.dashboardContent {
     flex-direction: column;
   }
 
-  .employeesDashboard>.dashboardContent>.employeeCards {
+  .departmentDashboard>.dashboardContent>.employeeCards {
     width: 100%;
   }
 
-  .employeesDashboard>.dashboardContent>.summaryCards {
+  .departmentDashboard>.dashboardContent>.summaryCards {
     width: 100%;
   }
 
   .employeePhotoName {
+    width: calc(100% - 2rem);
     flex-direction: column;
-    padding: 0.5rem;
-
+    gap: 1rem;
+    margin: 1rem;
+    padding: 1rem;
   }
 
   .employeePhotoName .photo,
   .employeePhotoName .name {
     width: 100%;
     flex-direction: column;
+  }
+
+  .name th {
+    width: 40%;
+    padding-right: 0.5rem;
+  }
+
+  .name td {
+    width: 60%;
   }
 
   .optionsBar {
@@ -1036,15 +1109,15 @@ button:hover {
     border-bottom: 1px solid #ddd;
     padding: 0 1.5rem;
   }
-  
+
   .option {
     flex: 0 0 auto;
     white-space: nowrap;
-  
+
     height: auto;
     min-width: auto;
     margin: 0;
-  
+
     background: none;
     border: none;
     padding: 1rem 1rem;
@@ -1053,7 +1126,7 @@ button:hover {
     color: #333;
     border-bottom: 3px solid transparent;
   }
-  
+
   .option.active {
     font-weight: 600;
     color: #000;
@@ -1063,12 +1136,12 @@ button:hover {
   .optionsBar::-webkit-scrollbar {
     height: 1px;
   }
-  
+
   .optionsBar::-webkit-scrollbar-thumb {
     background-color: lightgray;
     border-radius: 10px;
   }
-  
+
 
   .box1 {
     margin: 3.5rem 0 0 0;
@@ -1099,7 +1172,7 @@ button:hover {
 
   }
 
-  .addForm > div:first-child {
+  .addForm>div:first-child {
     flex-direction: column;
   }
 
@@ -1136,5 +1209,6 @@ button:hover {
     width: 100%;
     margin-top: 1rem;
   }
+
 
 }

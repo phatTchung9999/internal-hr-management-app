@@ -9,8 +9,7 @@ const EmployeeList = ({ employees, handleSelectAll, handleDeleteSelection, handl
                 totalEmployees={employees.length} 
                 employees={employees}
                 handleSelectAll={handleSelectAll}
-                handleDeleteSelection={handleDeleteSelection}
-            />
+                handleDeleteSelection={handleDeleteSelection}/> 
             <ul>
                 {employees.map((employee) => (
                     <EmployeeRow

@@ -1,7 +1,8 @@
 import './index.css';
 import Header from './Header';
 import Departments from './Departments';
-import EmployeesDashboard from './EmployeesDashboard';
+import DepartmentDashboard from './DepartmentDashboard';
+import EmployeeDashboard from './EmployeeDashboard';
 import Employees from './Employees';
 import Login from './Login';
 import Home from './Home';
@@ -56,6 +57,9 @@ function App() {
   const [departments, setDepartments] = useState([]);
   const [activeDepartment, setActiveDepartment] = useState('');
   const [navBar, setNavBar] = useState(false);
+  const [searchForm, setSearchForm] = useState(false);
+  const [showEmployee, setShowEmployee] = useState(false);
+  const [activeOption, setActiveOption] = useState('Team');
   const [auth, setAuth] = useState(() => {
     return localStorage.getItem('accessToken') ? true : false
   });
@@ -311,7 +315,7 @@ function App() {
           path="/departments/executive"
           element={
             <ProtectedRoute auth={auth}>
-              <EmployeesDashboard
+              <DepartmentDashboard
                 activeDepartment={activeDepartment}
                 setActiveDepartment={setActiveDepartment}
                 departments={departments}
@@ -320,6 +324,12 @@ function App() {
                 setSearch={setSearch}
                 navBar={navBar}
                 setNavBar={setNavBar}
+                searchForm={searchForm}
+                setSearchForm={setSearchForm}
+                showEmployee={showEmployee}
+                setShowEmployee={setShowEmployee}
+                activeOption={activeOption}
+                setActiveOption={setActiveOption}
               />
             </ProtectedRoute>
           }
@@ -351,6 +361,21 @@ function App() {
             </ProtectedRoute>
           }
         />
+        {employees.map(employee => (
+          <Route
+            path={`/employees/${employee._id}`}
+            element={
+              <ProtectedRoute auth={auth}>
+                <EmployeeDashboard
+                  employee={employee}
+                  navBar={navBar}
+                  setNavBar={setNavBar}
+                  activeOption={activeOption}
+                  setActiveOption={setActiveOption}
+                />
+              </ProtectedRoute>
+            }
+          />))}
       </Routes>
 
       <Footer />
