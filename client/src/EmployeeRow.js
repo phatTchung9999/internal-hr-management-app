@@ -16,7 +16,13 @@ const EmployeeRow = ({ employee, handleEmployeeChange}) => {
             <label
                 onClick={()=>  navigate(`/employees/${employee._id}`)}
             >
-                {`${employee.firstname} ${employee.lastname}, ${employee.department}, ${employee.title}`}
+                <span className='employeeName'>
+                    {employee.firstname} {employee.lastname}
+                </span>
+                <span className='employeeMeta'>
+                    {employee.department}
+                    {employee.title && ` · ${employee.title}`}
+                </span>
             </label>
         </li>
     )

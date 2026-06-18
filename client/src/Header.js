@@ -1,7 +1,7 @@
 import React from 'react';
-import Logout from './Logout';
+import { Link } from 'react-router-dom';
 
-const Header = ({auth, setAuth, title, clearStorage, search, setSearch }) => {
+const Header = ({ title }) => {
 
   return (
     <header className='App-header'>
@@ -12,22 +12,9 @@ const Header = ({auth, setAuth, title, clearStorage, search, setSearch }) => {
         alignItems: 'center',
         padding: '10px 20px'
       }}>
-        <div
-          onClick={clearStorage}
-          style={
-            {
-              fontSize: '1.4rem',
-              cursor: 'pointer',
-            }
-          }>
-          <b>{title}</b>
-        </div>
-          { auth &&
-            <Logout 
-              auth={auth}
-              setAuth={setAuth}
-            />
-          }
+        <Link to='/home' className='headerLogo'>
+          {title}
+        </Link>
       </nav>
 
     </header>

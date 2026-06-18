@@ -2,6 +2,54 @@ import React from 'react';
 import { MdAddToPhotos } from "react-icons/md";
 
 const AddEmployee = ({ newEmployee, setNewEmployee, addEmployeeStep, setAddEmployeeStep, handleSubmit, setAddEmployeeVisible }) => {
+    const requiredFields = [
+        ['First Name', 'firstname'],
+        ['Last Name', 'lastname'],
+        ['Email', 'email'],
+        ['Mobile Number', 'mobileNumber'],
+        ['Title', 'title'],
+        ['Department', 'department']
+    ];
+
+    const missingFields = requiredFields
+        .filter(([, key]) => !String(newEmployee[key] || '').trim())
+        .map(([label]) => label);
+
+    const displayValue = (value) => value || 'Not provided';
+
+    const displayDate = (value) => {
+        if (!value) return 'Not provided';
+
+        return new Date(`${value}T00:00:00`).toLocaleDateString(
+            undefined,
+            { year: 'numeric', month: 'long', day: 'numeric' }
+        );
+    };
+
+    const personalDetails = [
+        ['Full Name', `${newEmployee.firstname} ${newEmployee.lastname}`.trim()],
+        ['Date of Birth', displayDate(newEmployee.dateOfBirth)],
+        ['Gender', newEmployee.gender],
+        ['Ethnicity', newEmployee.ethnicity],
+        ['Email', newEmployee.email],
+        ['Mobile Number', newEmployee.mobileNumber],
+        ['Address', newEmployee.address]
+    ];
+
+    const jobDetails = [
+        ['Job Title', newEmployee.title],
+        [
+            'Hourly Rate',
+            newEmployee.rate !== ''
+                ? `$${Number(newEmployee.rate).toFixed(2)} / hr`
+                : ''
+        ],
+        ['Department', newEmployee.department],
+        ['Manager', newEmployee.manager],
+        ['Hire Date', displayDate(newEmployee.hireDate)],
+        ['Employment Status', newEmployee.employmentStatus],
+        ['Recruiter', newEmployee.recruiter]
+    ];
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -304,11 +352,73 @@ const AddEmployee = ({ newEmployee, setNewEmployee, addEmployeeStep, setAddEmplo
                 </>
             }
 
+            {addEmployeeStep === 'Review' &&
+                <section className='employeeReview'>
+                    <div className='reviewIntro'>
+                        <div>
+                            <h2>Review Employee Details</h2>
+                            <p>Confirm the information below before creating the employee.</p>
+                        </div>
+                        <div className='reviewInitials' aria-hidden='true'>
+                            {newEmployee.firstname?.[0] || newEmployee.lastname?.[0]
+                                ? `${newEmployee.firstname?.[0] || ''}${newEmployee.lastname?.[0] || ''}`
+                                : 'Empty'
+                            }
+                        </div>
+                    </div>
 
-            <div style={{
-                width: '100%',
-                margin: '4rem 0',
-            }}>
+                    {missingFields.length > 0 &&
+                        <div className='reviewWarning' role='alert'>
+                            <strong>Required information is missing:</strong>
+                            <span>{missingFields.join(', ')}</span>
+                        </div>
+                    }
+
+                    <div className='reviewSections'>
+                        <section className='reviewSection'>
+                            <div className='reviewSectionHeader'>
+                                <h3>Personal Information</h3>
+                                <button
+                                    type='button'
+                                    onClick={() => setAddEmployeeStep('Personal')}
+                                >
+                                    Edit
+                                </button>
+                            </div>
+                            <dl className='reviewDetails'>
+                                {personalDetails.map(([label, value]) => (
+                                    <div className='reviewDetail' key={label}>
+                                        <dt>{label}</dt>
+                                        <dd>{displayValue(value)}</dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </section>
+
+                        <section className='reviewSection'>
+                            <div className='reviewSectionHeader'>
+                                <h3>Job Information</h3>
+                                <button
+                                    type='button'
+                                    onClick={() => setAddEmployeeStep('Job')}
+                                >
+                                    Edit
+                                </button>
+                            </div>
+                            <dl className='reviewDetails'>
+                                {jobDetails.map(([label, value]) => (
+                                    <div className='reviewDetail' key={label}>
+                                        <dt>{label}</dt>
+                                        <dd>{displayValue(value)}</dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </section>
+                    </div>
+                </section>
+            }
+
+            <div className='addEmployeeActions'>
 
                 {addEmployeeStep !== 'Review' &&
                     <button style={{
@@ -331,16 +441,12 @@ const AddEmployee = ({ newEmployee, setNewEmployee, addEmployeeStep, setAddEmplo
                     </button>}
 
                 {addEmployeeStep === 'Review' &&
-                    <button style={{
-                        width: '80%',
-                        border: 'none',
-                        color: 'white',
-                        backgroundColor: 'rgb(18, 86, 188)',
-                        fontWeight: 'bolder'
-                    }}
+                    <button
+                        className='submitEmployeeButton'
                         type='submit'
+                        disabled={missingFields.length > 0}
                     >
-                        Submit
+                        Create Employee
                     </button>}
 
 

@@ -2,7 +2,8 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({ 
+const Login = ({
+  API_AUTH, 
   auth, 
   setAuth, 
   username, 
@@ -14,7 +15,6 @@ const Login = ({
 
   useEffect(() => console.log(auth), [auth])
 
-  const AUTH_API = "https://myhrmanager.azurewebsites.net/auth";
 
   const navigate = useNavigate()
 
@@ -27,7 +27,7 @@ const Login = ({
     }
 
     try {
-      const response = await fetch(AUTH_API, {
+      const response = await fetch(API_AUTH, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

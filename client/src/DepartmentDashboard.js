@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import NavBar from './NavBar';
 import HoursChart from './HoursChart';
 import PaidChart from './PaidChart';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const DepartmentDashboard = ({
@@ -17,6 +17,7 @@ const DepartmentDashboard = ({
     activeOption,
     setActiveOption
 }) => {
+    const navigate = useNavigate();
     const [hoursData, setHoursData] = useState({
         employees: [],
         dailyTotals: []
@@ -131,7 +132,16 @@ const DepartmentDashboard = ({
                                         <td className="memberInfo">
                                             <div
                                                 className="memberPhoto"
-                                                onClick={() => setShowEmployee(true)}
+                                                role='button'
+                                                tabIndex='0'
+                                                aria-label={`View ${employee.firstname} ${employee.lastname}`}
+                                                onClick={() => navigate(`/employees/${employee._id}`)}
+                                                onKeyDown={(event) => {
+                                                    if (event.key === 'Enter' || event.key === ' ') {
+                                                        event.preventDefault();
+                                                        navigate(`/employees/${employee._id}`);
+                                                    }
+                                                }}
                                             >
                                                 {employee.firstname?.[0]}
                                                 {employee.lastname?.[0]}

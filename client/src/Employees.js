@@ -9,6 +9,7 @@ import { useState } from 'react';
 const Employees = ({
     navBar,
     setNavBar,
+    departments,
     activeDepartment,
     setActiveDepartment,
     employees,
@@ -26,6 +27,18 @@ const Employees = ({
     }) => {
         const [addEmployeeStep, setAddEmployeeStep] = useState('Personal')
         const [addEmployeeVisible, setAddEmployeeVisible] = useState(false);
+        const [departmentFilter, setDepartmentFilter] = useState('');
+
+        const handleExitAddEmployee = () => {
+            setNewEmployee(currentEmployee =>
+                Object.fromEntries(
+                    Object.keys(currentEmployee).map(key => [key, ''])
+                )
+            );
+            setAddEmployeeStep('Personal');
+            setAddEmployeeVisible(false);
+        };
+
     return (
         <main className='employeesTrackPage'>
             <NavBar
@@ -34,19 +47,13 @@ const Employees = ({
                 activeDepartment={activeDepartment}
                 setActiveDepartment={setActiveDepartment}
             />
-            <section style={{
-                display: 'flex'
-            }}>
+            <section className='employeeSearchBar'>
                 <SearchItem
                     search={search}
                     setSearch={setSearch}
                 />
-                <button style={{
-                    marginTop: '4rem',
-                    border: 'none',
-                    backgroundColor: '#3f464e',
-                    color: 'white',
-                }}
+                <button
+                className='addEmployeeButton'
                 onClick={(e) => {
                     e.preventDefault();
                     setAddEmployeeVisible(true);
@@ -61,9 +68,18 @@ const Employees = ({
                     {fetchError && <p style={{ color: 'red' }}>{`Error: ${fetchError}`}</p>}
                     {!fetchError && !isLoading && !addEmployeeVisible &&
                         <EmployeeContent
-                            employees={employees.filter(employee => ((employee.firstname).toLowerCase()).includes(
-                                search.toLowerCase()
-                            ))}
+                            employees={employees.filter(employee => {
+                                const matchesSearch = employee.firstname
+                                    .toLowerCase()
+                                    .includes(search.toLowerCase());
+                                const matchesDepartment = !departmentFilter
+                                    || employee.department === departmentFilter;
+
+                                return matchesSearch && matchesDepartment;
+                            })}
+                            departments={departments}
+                            departmentFilter={departmentFilter}
+                            setDepartmentFilter={setDepartmentFilter}
                             handleSelectAll={handleSelectAll}
                             handleEmployeeChange={handleEmployeeChange}
                             handleDeleteEmployee={handleDeleteEmployee}
@@ -76,8 +92,7 @@ const Employees = ({
                             <StepBar 
                                 addEmployeeStep={addEmployeeStep}
                                 setAddEmployeeStep={setAddEmployeeStep}
-                                addEmployeeVisible={addEmployeeVisible}
-                                setAddEmployeeVisible={setAddEmployeeVisible}
+                                onExit={handleExitAddEmployee}
                             />
                             <AddEmployee
                                 newEmployee={newEmployee}

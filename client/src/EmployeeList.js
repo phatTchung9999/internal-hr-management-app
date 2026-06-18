@@ -2,24 +2,39 @@ import React from 'react';
 import EmployeeRow from './EmployeeRow';
 import EmployeeActionBar from './EmployeeActionBar';
 
-const EmployeeList = ({ employees, handleSelectAll, handleDeleteSelection, handleEmployeeChange, handleDeleteEmployee }) => {
+const EmployeeList = ({
+    employees,
+    departments,
+    departmentFilter,
+    setDepartmentFilter,
+    handleSelectAll,
+    handleDeleteSelection,
+    handleEmployeeChange,
+    handleDeleteEmployee
+}) => {
     return (
         <div className='employeeList'>
             <EmployeeActionBar 
                 totalEmployees={employees.length} 
                 employees={employees}
+                departments={departments}
+                departmentFilter={departmentFilter}
+                setDepartmentFilter={setDepartmentFilter}
                 handleSelectAll={handleSelectAll}
                 handleDeleteSelection={handleDeleteSelection}/> 
-            <ul>
-                {employees.map((employee) => (
+            {employees.length > 0
+                ? <ul>
+                    {employees.map((employee) => (
                     <EmployeeRow
                         key={employee._id}
                         employee={employee}
                         handleEmployeeChange={handleEmployeeChange}
                         handleDeleteEmployee={handleDeleteEmployee}
                     />
-                ))}
-            </ul>
+                    ))}
+                </ul>
+                : <p className='emptyEmployeeList'>No employees found for this filter.</p>
+            }
         </div>
     )
 }

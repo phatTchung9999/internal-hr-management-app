@@ -6,6 +6,9 @@ import EmployeeDashboard from './EmployeeDashboard';
 import Employees from './Employees';
 import Login from './Login';
 import Home from './Home';
+import Profile from './Profile';
+import Settings from './Settings';
+import FeaturePreview from './FeaturePreview';
 import Footer from './Footer';
 import apiRequest from './apiRequest';
 
@@ -13,7 +16,8 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
-  || "https://myhrmanager.azurewebsites.net";
+  || 'https://myhrmanager.azurewebsites.net';
+const API_AUTH = `${API_BASE_URL}/auth`;
 const API_EMPLOYEES = `${API_BASE_URL}/employees`;
 const API_DEPARTMENTS = `${API_BASE_URL}/departments`;
 const API_TIME_ENTRIES = `${API_BASE_URL}/time-entries`;
@@ -253,12 +257,6 @@ function App() {
     if (result) return setFetchError(result);
   }
 
-  const clearStorage = () => {
-    localStorage.removeItem('employees');
-    setEmployees([]);
-    console.log('The localStorage is cleared');
-  }
-
   const loginProps = {
     isLoading,
     setIsLoading,
@@ -272,27 +270,55 @@ function App() {
     setMessage,
     auth,
     setAuth,
+    API_AUTH,
   };
 
   return (
     <div className='App'>
       <Header
         title="HRmanager"
-        clearStorage={clearStorage}
-        search={search}
-        setSearch={setSearch}
-        auth={auth}
-        setAuth={setAuth}
       />
       <Routes>
-        <Route path="/" element={<Login {...loginProps} />} />
+        <Route
+          path="/"
+          element={
+            auth
+              ? <Navigate to="/home" replace />
+              : <Login {...loginProps} />
+          }
+        />
         <Route
           path="/home"
           element={
             <ProtectedRoute auth={auth}>
               <Home
                 username={username}
+                setAuth={setAuth}
               />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute auth={auth}>
+              <Profile username={username} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute auth={auth}>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/features/:featureKey"
+          element={
+            <ProtectedRoute auth={auth}>
+              <FeaturePreview />
             </ProtectedRoute>
           }
         />

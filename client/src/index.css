@@ -45,6 +45,19 @@ code {
   color: white;
 }
 
+.headerLogo {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.headerLogo:hover,
+.headerLogo:focus {
+  color: white;
+  text-decoration: none;
+}
+
 .App-footer {
   background-color: rgb(34, 34, 35);
   display: block;
@@ -98,10 +111,26 @@ ul li::before {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-  background-color: white;
+  gap: 0.85rem;
+  min-height: 4rem;
+  padding: 0.65rem 1rem;
+  background-color: #f8fafc;
   color: black;
-  margin: 0 0 0.1rem 0;
+  margin: 0;
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 150ms ease;
+}
+
+.employee:last-child {
+  border-bottom: 0;
+}
+
+.employee:hover {
+  background-color: #eef3fb;
+}
+
+.employee:has(input:checked) {
+  background-color: #e3edfb;
 }
 
 .employee input[type="checkbox"] {
@@ -112,9 +141,25 @@ ul li::before {
 }
 
 .employee>label {
-  font-size: 1rem;
   flex-grow: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  text-align: left;
   cursor: pointer;
+}
+
+.employeeName {
+  color: #202124;
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+.employeeMeta {
+  color: #6f7275;
+  font-size: 0.8rem;
 }
 
 .employee svg {
@@ -342,6 +387,151 @@ ul li::before {
   align-self: center;
 }
 
+.employeeReview {
+  width: 100%;
+  text-align: left;
+}
+
+.reviewIntro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid lightgray;
+}
+
+.reviewIntro h2,
+.reviewIntro p {
+  margin: 0;
+}
+
+.reviewIntro h2 {
+  font-size: 1.25rem;
+}
+
+.reviewIntro p {
+  margin-top: 0.5rem;
+  color: #5f6368;
+  font-size: 0.85rem;
+}
+
+.reviewInitials {
+  flex: 0 0 4rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgb(18, 86, 188);
+  border: 0.3rem solid #eef3fb;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.reviewWarning {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  color: #8a3b12;
+  background-color: #fff4e5;
+  border-left: 0.25rem solid #d97706;
+  font-size: 0.85rem;
+}
+
+.reviewSections {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.reviewSection {
+  border: 1px solid lightgray;
+  background-color: white;
+}
+
+.reviewSectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: rgb(245, 247, 250);
+  border-bottom: 1px solid lightgray;
+}
+
+.reviewSectionHeader h3 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.reviewSectionHeader button {
+  min-width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.35rem 0.75rem;
+  color: rgb(18, 86, 188);
+  background-color: white;
+  border: 1px solid lightgray;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.reviewDetails {
+  margin: 0;
+  padding: 0 1rem;
+}
+
+.reviewDetail {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.reviewDetail:last-child {
+  border-bottom: 0;
+}
+
+.reviewDetail dt {
+  color: #5f6368;
+  font-size: 0.78rem;
+  font-weight: bold;
+}
+
+.reviewDetail dd {
+  margin: 0;
+  color: #202124;
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+
+.addEmployeeActions {
+  width: 100%;
+  margin: 3rem 0 1rem;
+  text-align: center;
+}
+
+.addEmployeeActions .submitEmployeeButton {
+  width: 80%;
+  border: none;
+  color: white;
+  background-color: rgb(18, 86, 188);
+  font-size: 0.9rem;
+  font-weight: bolder;
+}
+
+.addEmployeeActions .submitEmployeeButton:disabled {
+  color: #6f7275;
+  background-color: lightgray;
+  cursor: not-allowed;
+}
+
 
 button {
   height: 48px;
@@ -359,10 +549,11 @@ button:hover {
 }
 
 .searchForm {
-  width: 100%;
-  margin: 4rem 0 1rem 0;
+  flex: 1;
+  width: auto;
+  margin: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .searchForm label {
@@ -370,12 +561,83 @@ button:hover {
   left: -99999px;
 }
 
-.searchForm input[type='text'] {
-  flex-grow: 1;
-  max-width: calc(100% - 25px);
+.searchInput {
+  width: 100%;
   height: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0 0.85rem;
+  background-color: #f5f7fa;
+  border: 1px solid #d6dde7;
   border-radius: 0.25rem;
+}
+
+.searchInput:focus-within {
+  background-color: white;
+  border-color: rgb(18, 86, 188);
+  box-shadow: 0 0 0 2px rgba(18, 86, 188, 0.12);
+}
+
+.searchInput>svg {
+  flex: 0 0 auto;
+  color: #6f7275;
+  font-size: 0.95rem;
+}
+
+.searchInput input[type='text'] {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 0.95rem;
   outline: none;
+}
+
+.searchInput button {
+  flex: 0 0 2rem;
+  width: 2rem;
+  min-width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6f7275;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+}
+
+.employeeSearchBar {
+  width: 97%;
+  max-width: 1300px;
+  margin: 4rem auto 1rem;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: white;
+  box-shadow: 0 4px 10px gray;
+}
+
+.employeeSearchBar .addEmployeeButton {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0 1.25rem;
+  border: none;
+  background-color: #3f464e;
+  color: white;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.employeeSearchBar .addEmployeeButton:hover,
+.employeeSearchBar .addEmployeeButton:focus {
+  background-color: rgb(18, 86, 188);
 }
 
 
@@ -437,6 +699,241 @@ button:hover {
   background-color: transparent;
   border: none;
   font-size: 2rem;
+}
+
+.profileActions {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.homepage>.profile .homeIconButton {
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  margin: 0 0.1rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #3f464e;
+  border-radius: 50%;
+}
+
+.homepage>.profile .homeIconButton:hover,
+.homepage>.profile .homeIconButton:focus,
+.homepage>.profile .homeIconButton.active {
+  color: rgb(18, 86, 188);
+  background-color: #eef3fb;
+}
+
+.homeProfileMenu {
+  position: absolute;
+  top: calc(100% + 0.6rem);
+  right: 0;
+  z-index: 10;
+  width: 16rem;
+  padding: 0.4rem 0;
+  background-color: white;
+  border: 1px solid lightgray;
+  box-shadow: 0 4px 10px gray;
+}
+
+.profileMenuHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid lightgray;
+}
+
+.profileMenuAvatar {
+  flex: 0 0 2.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgb(18, 86, 188);
+  border-radius: 50%;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.profileMenuHeader strong,
+.profileMenuHeader span {
+  display: block;
+}
+
+.profileMenuHeader strong {
+  color: #202124;
+  font-size: 0.9rem;
+}
+
+.profileMenuHeader span {
+  margin-top: 0.15rem;
+  color: #6f7275;
+  font-size: 0.75rem;
+}
+
+.homepage>.profile .homeProfileMenu>button {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+  padding: 0.7rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #202124;
+  background-color: white;
+  border: 0;
+  border-radius: 0;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.homepage>.profile .homeProfileMenu>button:hover,
+.homepage>.profile .homeProfileMenu>button:focus {
+  background-color: rgb(245, 247, 250);
+}
+
+.homeProfileMenu>button svg {
+  color: rgb(18, 86, 188);
+  font-size: 1.1rem;
+}
+
+.homepage>.profile .homeProfileMenu>.profileLogoutButton {
+  color: #b42318;
+  border-top: 1px solid lightgray;
+}
+
+.homeProfileMenu>.profileLogoutButton svg {
+  color: #b42318;
+}
+
+.accountPage {
+  min-height: 100vh;
+  padding: 6rem 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: rgb(218, 225, 237);
+}
+
+.accountCard {
+  width: min(90%, 40rem);
+  padding: 1.5rem;
+  background-color: white;
+  box-shadow: 0 4px 10px gray;
+  text-align: left;
+}
+
+.accountCard h2 {
+  margin-top: 0;
+}
+
+.accountDetail {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
+
+.accountDetail span {
+  color: #6f7275;
+}
+
+.accountCard button {
+  margin: 1.5rem 0 0;
+  padding: 0 1rem;
+  color: white;
+  background-color: rgb(18, 86, 188);
+  border: 0;
+}
+
+.featurePreviewPage {
+  min-height: 100vh;
+  padding: 6rem 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: rgb(218, 225, 237);
+}
+
+.featurePreviewCard {
+  width: min(90%, 42rem);
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 4px 10px gray;
+  text-align: left;
+}
+
+.featurePreviewIcon {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: rgb(18, 86, 188);
+  border-radius: 50%;
+  font-size: 1.75rem;
+}
+
+.comingSoonLabel {
+  display: inline-block;
+  margin-top: 1.25rem;
+  color: rgb(18, 86, 188);
+  font-size: 0.78rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.featurePreviewCard h1 {
+  margin: 0.4rem 0;
+}
+
+.featurePreviewCard>p {
+  margin-top: 0;
+  color: #5f6368;
+}
+
+.plannedFeatures {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background-color: rgb(245, 247, 250);
+  border-left: 0.25rem solid rgb(18, 86, 188);
+}
+
+.plannedFeatures h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+}
+
+.plannedFeatures ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.plannedFeatures li {
+  margin: 0.5rem 0;
+  color: #3f464e;
+  font-size: 0.9rem;
+}
+
+.featurePreviewCard>button {
+  margin: 1.5rem 0 0;
+  padding: 0 1.25rem;
+  color: white;
+  background-color: rgb(18, 86, 188);
+  border: 0;
 }
 
 .homepage>.dashboardContent {
@@ -549,7 +1046,15 @@ button:hover {
   width: 20rem;
   min-height: calc(100vh - 3.1rem);
   transition: transform 0.3s ease;
-  z-index: 2;
+  z-index: 1001;
+}
+
+.navBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.55);
+  cursor: pointer;
 }
 
 .departmentPage nav.closed,
@@ -1130,15 +1635,29 @@ button:hover {
 
 
 .employeeList {
-  border: solid black 1px;
+  border: 1px solid #d6d9dd;
   width: 100%;
+  min-height: 30rem;
+  height: fit-content;
   display: flex;
   flex-direction: column;
-  background-color: lightgray;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.employeeList ul {
+  margin: 0;
+  padding: 0;
 }
 
 .employeesTrackPage .App-content {
+  width: 97%;
+  max-width: 1300px;
+  margin: 0 auto;
   padding-top: 1rem;
+  background-color: white;
+  color: #202124;
 }
 
 .employeeActionBar {
@@ -1159,6 +1678,69 @@ button:hover {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
+
+.departmentFilter {
+  position: relative;
+}
+
+.employeeActionBar .filterActive {
+  color: rgb(18, 86, 188);
+  background-color: #eef3fb;
+}
+
+.departmentFilterMenu {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  z-index: 5;
+  width: 13rem;
+  padding: 0.4rem 0;
+  background-color: white;
+  border: 1px solid lightgray;
+  box-shadow: 0 4px 10px gray;
+}
+
+.departmentFilterMenu p {
+  margin: 0;
+  padding: 0.6rem 0.9rem;
+  color: #5f6368;
+  font-size: 0.78rem;
+  font-weight: bold;
+  text-align: left;
+  border-bottom: 1px solid lightgray;
+}
+
+.departmentFilterMenu button {
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0.65rem 0.9rem;
+  color: #202124;
+  background-color: white;
+  border: 0;
+  border-radius: 0;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.departmentFilterMenu button:hover,
+.departmentFilterMenu button.selected {
+  background-color: rgb(245, 247, 250);
+}
+
+.departmentFilterMenu button.selected {
+  color: rgb(18, 86, 188);
+  font-weight: bold;
+}
+
+.emptyEmployeeList {
+  margin: 0;
+  padding: 2rem 1rem;
+  color: #5f6368;
+  background-color: white;
+  text-align: center;
 }
 
 .employeeActionBar .iconButton {
@@ -1217,6 +1799,16 @@ button:hover {
 
 
 @media (max-width: 768px) {
+  .employeeSearchBar {
+    width: calc(100% - 2rem);
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .employeeSearchBar .addEmployeeButton {
+    width: 100%;
+  }
+
   .homepage>.dashboardContent>.cards {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -1382,6 +1974,21 @@ button:hover {
 
   .addForm label {
     font-size: 1rem;
+  }
+
+  .reviewSections {
+    grid-template-columns: 1fr;
+  }
+
+  .reviewDetail {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .reviewInitials {
+    flex-basis: 3.25rem;
+    width: 3.25rem;
+    height: 3.25rem;
   }
 
   .addForm button {

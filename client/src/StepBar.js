@@ -1,23 +1,34 @@
 import React from 'react';
+import { MdArrowBack } from 'react-icons/md';
 
 const StepBar = ({
-  addEmployeeVisible, 
-  setAddEmployeeVisible,
-  addEmployeeStep, 
-  setAddEmployeeStep
+  addEmployeeStep,
+  setAddEmployeeStep,
+  onExit
 }) => {
 
   return (
     <div className='stepBar'>
       <div className='row'>
-        <button>
-
-        </button>
+        {addEmployeeStep === 'Job'
+          ? (
+            <button
+              type='button'
+              aria-label='Back to personal information'
+              title='Back'
+              onClick={() => setAddEmployeeStep('Personal')}
+            >
+              <MdArrowBack />
+            </button>
+          )
+          : <span aria-hidden='true'></span>
+        }
         <button 
+          type='button'
           style={{
             color: 'rgb(18, 86, 188)'
           }}
-          onClick={() => {setAddEmployeeVisible(false)}}
+          onClick={onExit}
         
         >
           Exit
