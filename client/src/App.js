@@ -12,6 +12,12 @@ import apiRequest from './apiRequest';
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL
+  || "https://myhrmanager.azurewebsites.net";
+const API_EMPLOYEES = `${API_BASE_URL}/employees`;
+const API_DEPARTMENTS = `${API_BASE_URL}/departments`;
+const API_TIME_ENTRIES = `${API_BASE_URL}/time-entries`;
+
 const EMPTY_EMPLOYEE = {
   firstname: '',
   lastname: '',
@@ -41,11 +47,6 @@ const ProtectedRoute = ({ auth, children }) => {
 };
 
 function App() {
-  // const API_EMPLOYEES = "http://localhost:3500/employees";
-  // const API_DEPARTMENTS = "http://localhost:3500/departments";
-  const API_EMPLOYEES = "https://myhrmanager.azurewebsites.net/employees";
-  const API_DEPARTMENTS = "https://myhrmanager.azurewebsites.net/departments";
-
   const [employees, setEmployees] = useState([]);
   const [newEmployee, setNewEmployee] = useState(EMPTY_EMPLOYEE);
   const [search, setSearch] = useState('');
@@ -312,14 +313,14 @@ function App() {
           }
         />
         <Route
-          path="/departments/executive"
+          path="/departments/:departmentName"
           element={
             <ProtectedRoute auth={auth}>
               <DepartmentDashboard
-                activeDepartment={activeDepartment}
+                employees={employees}
+                timeEntriesApi={API_TIME_ENTRIES}
                 setActiveDepartment={setActiveDepartment}
                 departments={departments}
-                setDepartments={setDepartments}
                 search={search}
                 setSearch={setSearch}
                 navBar={navBar}

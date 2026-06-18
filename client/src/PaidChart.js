@@ -5,46 +5,20 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
 
-const PaidChart = () => {
+const PaidChart = ({ data = [] }) => {
   const [range, setRange] = useState(7);
 
-  const allData = [
-    { day: "Day 1", paid: 850 },
-    { day: "Day 2", paid: 760 },
-    { day: "Day 3", paid: 920 },
-    { day: "Day 4", paid: 680 },
-    { day: "Day 5", paid: 810 },
-    { day: "Day 6", paid: 530 },
-    { day: "Day 7", paid: 880 },
-    { day: "Day 8", paid: 790 },
-    { day: "Day 9", paid: 650 },
-    { day: "Day 10", paid: 840 },
-    { day: "Day 11", paid: 940 },
-    { day: "Day 12", paid: 720 },
-    { day: "Day 13", paid: 860 },
-    { day: "Day 14", paid: 690 },
-    { day: "Day 15", paid: 750 },
-    { day: "Day 16", paid: 810 },
-    { day: "Day 17", paid: 900 },
-    { day: "Day 18", paid: 620 },
-    { day: "Day 19", paid: 770 },
-    { day: "Day 20", paid: 830 },
-    { day: "Day 21", paid: 870 },
-    { day: "Day 22", paid: 710 },
-    { day: "Day 23", paid: 790 },
-    { day: "Day 24", paid: 880 },
-    { day: "Day 25", paid: 930 },
-    { day: "Day 26", paid: 690 },
-    { day: "Day 27", paid: 760 },
-    { day: "Day 28", paid: 820 },
-    { day: "Day 29", paid: 850 },
-    { day: "Day 30", paid: 910 },
-  ];
-
-  const chartData = allData.slice(0, range);
+  const chartData = data.slice(-range).map(item => ({
+    ...item,
+    day: new Date(`${item.date}T00:00:00`).toLocaleDateString(
+      undefined,
+      { month: 'short', day: 'numeric' }
+    )
+  }));
 
   return (
     <div className="paidChart">
@@ -60,10 +34,20 @@ const PaidChart = () => {
 
       <ResponsiveContainer width="100%" height={250}>
         <BarChart data={chartData}>
-          <XAxis dataKey="day" />
-          <YAxis />
-          <Tooltip formatter={(value) => `$${value}`} />
-          <Bar dataKey="paid" name="Payroll" />
+          <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" vertical={false} />
+          <XAxis dataKey="day" tick={{ fill: '#64748b', fontSize: 12 }} axisLine={false} tickLine={false} />
+          <YAxis
+            tick={{ fill: '#64748b', fontSize: 12 }}
+            axisLine={false}
+            tickLine={false}
+            tickFormatter={(value) => `$${value}`}
+          />
+          <Tooltip
+            formatter={(value) => `$${Number(value).toFixed(2)}`}
+            contentStyle={{ border: '1px solid #e2e8f0', borderRadius: 8 }}
+            cursor={{ fill: '#f1f5f9' }}
+          />
+          <Bar dataKey="payroll" name="Payroll" fill="#7c3aed" radius={[6, 6, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

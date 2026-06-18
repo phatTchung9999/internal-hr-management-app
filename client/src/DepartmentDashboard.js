@@ -1,26 +1,95 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import NavBar from './NavBar';
 import HoursChart from './HoursChart';
 import PaidChart from './PaidChart';
-import { FaSearch } from "react-icons/fa";
+import { useParams } from 'react-router-dom';
 
 
 const DepartmentDashboard = ({
+    employees,
     departments,
-    setDepartments,
-    search,
-    setSearch,
+    timeEntriesApi,
     navBar,
     setNavBar,
-    activeDepartment,
     setActiveDepartment,
-    searchForm,
-    setSearchForm,
     showEmployee,
     setShowEmployee,
     activeOption,
     setActiveOption
 }) => {
+    const [hoursData, setHoursData] = useState({
+        employees: [],
+        dailyTotals: []
+    });
+    const [hoursLoading, setHoursLoading] = useState(false);
+    const [hoursError, setHoursError] = useState('');
+
+    const { departmentName } = useParams();
+    const selectedDepartment = departments.find(
+        department =>
+            department.name.toLowerCase() === departmentName?.toLowerCase()
+    );
+    const activeDepartment = selectedDepartment?.name || '';
+
+    useEffect(() => {
+        if (activeDepartment) {
+            setActiveDepartment(activeDepartment);
+        }
+    }, [activeDepartment, setActiveDepartment]);
+
+    useEffect(() => {
+        if (!activeDepartment || !timeEntriesApi) return;
+
+        const controller = new AbortController();
+
+        const fetchHours = async () => {
+            setHoursLoading(true);
+            setHoursError('');
+
+            try {
+                const token = localStorage.getItem('accessToken');
+                const response = await fetch(
+                    `${timeEntriesApi}/department/${encodeURIComponent(activeDepartment)}`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        },
+                        signal: controller.signal
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error('Unable to load department hours and payroll.');
+                }
+
+                const data = await response.json();
+                setHoursData({
+                    employees: data.employees || [],
+                    dailyTotals: data.dailyTotals || []
+                });
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    setHoursError(err.message);
+                    setHoursData({ employees: [], dailyTotals: [] });
+                }
+            } finally {
+                if (!controller.signal.aborted) {
+                    setHoursLoading(false);
+                }
+            }
+        };
+
+        fetchHours();
+
+        return () => controller.abort();
+    }, [activeDepartment, timeEntriesApi]);
+
+    const employeeHours = useMemo(
+        () => new Map(
+            hoursData.employees.map(summary => [summary.employeeId, summary])
+        ),
+        [hoursData.employees]
+    );
 
     return (
         <main className='departmentDashboard' >
@@ -28,7 +97,6 @@ const DepartmentDashboard = ({
                 navBar={navBar}
                 setNavBar={setNavBar}
                 departments={departments}
-                setDepartments={setDepartments}
                 activeDepartment={activeDepartment}
                 setActiveDepartment={setActiveDepartment}
             />
@@ -37,31 +105,8 @@ const DepartmentDashboard = ({
                     style={{ cursor: 'pointer' }}
                     onClick={() => setShowEmployee(false)}
                 >
-                    {`${activeDepartment?.name} members`}
+                    {`${activeDepartment} members`}
                 </h2>
-
-                <div>
-                    {!searchForm ?
-                        <button onClick={() => setSearchForm(!searchForm)}>
-                            <FaSearch />
-                            Search
-                        </button>
-                        : <form className='searchForm' onSubmit={(e) => e.preventDefault()}>
-                            <label htmlFor='search'></label>
-                            <input
-                                autoFocus
-                                id='search'
-                                type='text'
-                                placeholder='Search Employee'
-                                value={search}
-                                onChange={(e) => { setSearch(e.target.value) }}
-                                onBlur={() => {
-                                    if (search === '') setSearchForm(false);
-                                }}
-                            />
-                        </form>
-                    }
-                </div>
 
             </section>
             <section className='dashboardContent'>
@@ -76,34 +121,56 @@ const DepartmentDashboard = ({
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td className="memberInfo">
-                                    <div
-                                        className="memberPhoto"
-                                        style={{ cursor: 'pointer' }}
-                                        onClick={() => setShowEmployee(true)}
-                                    >
-                                        P
-                                    </div>
-                                    <div className="memberName">
-                                        <h4>Phat Chung</h4>
-                                        <p>CEO</p>
-                                    </div>
-                                </td>
-                                <td>Worked Hours</td>
-                                <td>Effective Hours</td>
-                            </tr>
+                            {employees.map(employee => {
+                                if (employee.department !== activeDepartment) return null;
+
+                                const summary = employeeHours.get(employee._id);
+
+                                return (
+                                    <tr key={employee._id}>
+                                        <td className="memberInfo">
+                                            <div
+                                                className="memberPhoto"
+                                                onClick={() => setShowEmployee(true)}
+                                            >
+                                                {employee.firstname?.[0]}
+                                                {employee.lastname?.[0]}
+                                            </div>
+                                            <div className="memberName">
+                                                <h4>{employee.firstname} {employee.lastname}</h4>
+                                                <p>{employee.title}</p>
+                                            </div>
+                                        </td>
+                                        <td className="workedHours" data-label="Worked Hours">
+                                            {(summary?.workedHours || 0).toFixed(1)}
+                                            <span> hrs</span>
+                                        </td>
+                                        <td className="effectiveHours" data-label="Effective Hours">
+                                            {(summary?.effectiveHours || 0).toFixed(1)}
+                                            <span> hrs</span>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
                         </tbody>
                     </table>
                 </div>
 
                 <div className='summaryCards'>
                     <div className='card'>
-                        <HoursChart />
+                        {hoursLoading && <p>Loading department hours...</p>}
+                        {hoursError
+                            ? <p role="alert">{hoursError}</p>
+                            : !hoursLoading && <HoursChart data={hoursData.dailyTotals} />
+                        }
                     </div>
                     <hr style={{ width: '90%', color: 'lightgray', marginBottom: '0' }} />
                     <div className='card' style={{ marginTop: '0' }}>
-                        <PaidChart />
+                        {hoursLoading && <p>Loading department payroll...</p>}
+                        {hoursError
+                            ? <p role="alert">{hoursError}</p>
+                            : !hoursLoading && <PaidChart data={hoursData.dailyTotals} />
+                        }
                     </div>
 
                 </div>

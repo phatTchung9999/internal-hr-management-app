@@ -21,8 +21,8 @@ const NavBar = ({
           type="button"
           onClick={() => {
             setNavBar(false);
-            setActiveDepartment(department);
-            navigate(`/departments/${department.name.toLowerCase()}`);
+            setActiveDepartment(department.name);
+            navigate(`/departments/${encodeURIComponent(department.name.toLowerCase())}`);
           }}
         >
           {department.name}
